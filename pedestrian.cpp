@@ -38,7 +38,28 @@ void Pedestrian::Walk(){
   if(PresentTime < 30){
     y += velocity;
   }
-  else{
+  else if(PresentTime < 60){
     x += velocity;
+  }
+  else if(PresentTime < 90){
+    x -= velocity;
+  }
+  else if(PresentTime < 105){
+    y -= velocity;
+  }
+  else if(PresentTime < 135){
+    x += velocity;
+  }
+  else if(PresentTime < 165){
+    x -= velocity;
+  }
+  else if(PresentTime < 180){
+    y -= velocity;
+  }
+  else if(PresentTime < 210){
+    x += velocity;
+  }
+  else if(PresentTime < 240){
+    x -= velocity;
   }
 }

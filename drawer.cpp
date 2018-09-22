@@ -10,12 +10,12 @@ class Pedestrian;
 extern vector<Pedestrian> pedestrians;
 
 void drawWall(){
-  AutoGL_SetColor(1,0,0);
-  AutoGL_DrawQuadrangle(100,100,0,200,100,0,200,200,0,100,200,0);
+  AutoGL_SetColor(0,0,0);
+  AutoGL_DrawQuadrangle(-120,-120,0,-120,120,0,120,120,0,120,-120,0);
 }
 
 void drawPedestrian(){
-  AutoGL_SetColor(0,0,1);
+  AutoGL_SetColor(1,1,1);
 
   for(unsigned int i=0;i<pedestrians.size();i++)
   {
