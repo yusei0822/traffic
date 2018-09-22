@@ -1,0 +1,3 @@
+void drawWall();
+
+void drawPedestrian();
