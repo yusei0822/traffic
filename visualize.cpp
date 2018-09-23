@@ -63,9 +63,13 @@ void visualize()
 
 }
 
+// 壁と歩行者の記述
 void redrawView()
 {
   drawWall();
+  drawWall2();
+  drawWall3();
+  drawWall4();
   drawPedestrian();
 }
 
