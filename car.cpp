@@ -18,8 +18,7 @@ extern vector<LINK> LINK;
 
 // 車の初期設定関数
 void CAR::INITIAL_CONFIG(int InitialNodeID, int InitialLinkID,
-			 int InitialCarID, double InitialVelocity, int InitialDestination)
-{
+			 int InitialCarID, double InitialVelocity, int InitialDestination){
   CarID=InitialCarID;
   LinkID=InitialLinkID;
   CarVelocity=InitialVelocity;

@@ -7,6 +7,7 @@ class Pedestrian{
   double acceleration;
 
 public:
+  // コンストラクタ
   Pedestrian(double x, double y, double z);
   double X();
   double Y();
