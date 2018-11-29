@@ -1,6 +1,6 @@
 #include <iostream>
 #include <autogl.h>
-#include "visualize.h"
+#include "Visualize.h"
 
 double PresentTime = 0;
 double TimeStep = 0.1; //[s]

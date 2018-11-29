@@ -1,6 +1,6 @@
 void drawWall();
 
-void drawwall2();
+void drawWall2();
 
 void drawWall3();
 

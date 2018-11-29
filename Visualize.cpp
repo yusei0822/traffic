@@ -4,8 +4,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-#include "drawer.h"
-#include "pedestrian.h"
+#include <utility>
+#include "Drawer.h"
+#include "Pedestrian.h"
+#include "Vector2D.h"
+#include "Route.h"
 
 using namespace std;
 
@@ -66,11 +69,12 @@ void visualize()
 // 壁と歩行者の記述
 void redrawView()
 {
+  drawPedestrian();
   drawWall();
   drawWall2();
   drawWall3();
   drawWall4();
-  drawPedestrian();
+
 }
 
 void animateButtonCallback(void)
@@ -98,10 +102,34 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
 
   cout<<"Time:"<<(int)PresentTime<<endl;
+
   if(PresentTime == 0.1)
   {
-    cout<<111<<endl;
-    Pedestrian *p = new Pedestrian(-100, -100, 1);
+
+    vector<pair<double, double> > point;
+    point.push_back(make_pair(-90, -90));
+    point.push_back(make_pair(-90, 90));
+    point.push_back(make_pair(90, 90));
+    point.push_back(make_pair(-90, 90));
+    point.push_back(make_pair(-90, 0));
+    point.push_back(make_pair(90, 0));
+    point.push_back(make_pair(-90, 0));
+    point.push_back(make_pair(-90, -90));
+    point.push_back(make_pair(90, -90));
+    point.push_back(make_pair(-90, -90));
+
+    // 経路作成
+    Route* route = new Route();
+    for(int i = 0; i < point.size(); i++)
+    {
+      Vector2D* vec = new Vector2D(point[i].first, point[i].second);
+      route->addNext(vec);
+    }
+
+    // 初速度ベクトル
+    Vector2D* v0 = new Vector2D(0,0);
+
+    Pedestrian *p = new Pedestrian(1, route, v0);
     pedestrians.push_back(*p);
   }
 
