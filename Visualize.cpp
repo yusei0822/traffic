@@ -94,7 +94,7 @@ void animateButtonCallback(void)
 }
 
 
-//一つのタイムステップ
+//一つのタイムステップで実行する操作
 void idleEvent()
 {
   PresentTime += TimeStep;
@@ -103,9 +103,10 @@ void idleEvent()
 
   cout<<"Time:"<<(int)PresentTime<<endl;
 
-  if(PresentTime == 0.1)
+  static int pid = 0;
+  if((PresentTime*10)%10 == 0)
   {
-
+    // サブゴールの設定
     vector<pair<double, double> > point;
     point.push_back(make_pair(-90, -90));
     point.push_back(make_pair(-90, 90));
@@ -129,8 +130,9 @@ void idleEvent()
     // 初速度ベクトル
     Vector2D* v0 = new Vector2D(0,0);
 
-    Pedestrian *p = new Pedestrian(1, route, v0);
+    Pedestrian *p = new Pedestrian(pid, route, v0);
     pedestrians.push_back(*p);
+    pid++;
   }
 
 

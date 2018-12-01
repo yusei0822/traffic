@@ -6,6 +6,8 @@
 
 using namespace std;
 
+extern vector<Pedestrian> pedestrians;
+
 Pedestrian::Pedestrian(int id, Route* route, Vector2D* velocity){
   _id = id;
   _route = route;
@@ -44,19 +46,29 @@ void Pedestrian::walk(){
 void Pedestrian::decideAcceleration(){
   //===============================================
   // 移動目標に近づく力
-
   /// 移動目標に向かう単位ベクトル
-  Vector2D* e_a = uVec(sVec(_route->next(), _position));
-  cout<<"next:"<<_route->next()->x()<<endl;
-  cout<<"position"<<_position->x()<<endl;
-  Vector2D* f1 = mVec(1/0.1, sVec(mVec(_desiredSpeed, e_a), _velocity));
-
+    Vector2D* e_a = uVec(sVec(_route->next(), _position));
+    cout<<"next:"<<_route->next()->x()<<endl;
+    cout<<"position"<<_position->x()<<endl;
+    Vector2D* f1 = mVec(1/0.1, sVec(mVec(_desiredSpeed, e_a), _velocity));
   //===============================================
   // 他のエージェントからの斥力
-
+  // 変数の定義
+  double v0_ab = 2.1;
+  double s = 0.3;
+  /// 自分以外の全エージェントから受ける力を計算
+  for (i=0, i<pedestrians.size(),i++){
+    // 相対距離の計算
+    Vector2D* r_a
+    Vector2D* r_b
+    Vector2D* r_ab = sVec(pedestrian[i].velocity(),_acceration);
+    // 相手側の
+    Vector2D* b = size();
+    Vector2D* f2 = v0_ab * exp(-b * s);
+  }
   //===============================================
-
-  _acceleration = f1;
+    _acceleration = f1;
+  }
 }
 
 bool Pedestrian::isArrived(){

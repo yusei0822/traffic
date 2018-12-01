@@ -43,6 +43,9 @@ public:
   // 速度を返す
   Vector2D* velocity();
 
+  // 加速度を返す
+  Vector2D* acceleration();
+
   // 通過経路を返す
   Route* route();
 
