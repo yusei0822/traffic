@@ -5,10 +5,12 @@
 #include <ctime>
 #include <vector>
 #include <utility>
+#include <math.h>
 #include "Drawer.h"
 #include "Pedestrian.h"
 #include "Vector2D.h"
 #include "Route.h"
+#include <unistd.h>
 
 using namespace std;
 
@@ -37,7 +39,7 @@ void visualize()
 {
   //ビューのパラメータ設定
   AutoGL_SetBackgroundColor(1, 1, 1);
-  AutoGL_SetViewSize(300);           //ビューの大きさ
+  AutoGL_SetViewSize(30);           //ビューの大きさ
   AutoGL_SetViewCenter(0, 0, 0);     //注視点
   AutoGL_SetViewDirection(0, 0, 1);  //視線方向
 
@@ -100,28 +102,27 @@ void idleEvent()
   PresentTime += TimeStep;
 
   if((int)(PresentTime*10)%10 == 0)
-
   cout<<"Time:"<<(int)PresentTime<<endl;
 
   static int pid = 0;
-  if((PresentTime*10)%10 == 0)
+  if((int)(PresentTime*10)%50 == 0 && PresentTime<25)
   {
     // サブゴールの設定
     vector<pair<double, double> > point;
-    point.push_back(make_pair(-90, -90));
-    point.push_back(make_pair(-90, 90));
-    point.push_back(make_pair(90, 90));
-    point.push_back(make_pair(-90, 90));
-    point.push_back(make_pair(-90, 0));
-    point.push_back(make_pair(90, 0));
-    point.push_back(make_pair(-90, 0));
-    point.push_back(make_pair(-90, -90));
-    point.push_back(make_pair(90, -90));
-    point.push_back(make_pair(-90, -90));
+    point.push_back(make_pair(-25, -25));
+    point.push_back(make_pair(-25, 25));
+    point.push_back(make_pair(25, 25));
+    point.push_back(make_pair(-25, 25));
+    point.push_back(make_pair(-25, 0));
+    point.push_back(make_pair(25, 0));
+    point.push_back(make_pair(-25, 0));
+    point.push_back(make_pair(-25, -25));
+    point.push_back(make_pair(25, -25));
+    point.push_back(make_pair(-25, -25));
 
     // 経路作成
     Route* route = new Route();
-    for(int i = 0; i < point.size(); i++)
+    for(unsigned int i = 0; i < point.size(); i++)
     {
       Vector2D* vec = new Vector2D(point[i].first, point[i].second);
       route->addNext(vec);
@@ -129,7 +130,6 @@ void idleEvent()
 
     // 初速度ベクトル
     Vector2D* v0 = new Vector2D(0,0);
-
     Pedestrian *p = new Pedestrian(pid, route, v0);
     pedestrians.push_back(*p);
     pid++;
@@ -137,6 +137,8 @@ void idleEvent()
 
 
   AutoGL_DrawView();
+  // 見やすいように処理を一時的に止める
+  usleep(1000000 * TimeStep);
 }
 
 void quitButtonCallback()

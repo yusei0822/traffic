@@ -15,7 +15,7 @@ protected:
   // ID
   int _id;
 
-  // 速さ
+  // 速度
   Vector2D* _velocity;
 
   // 加速度

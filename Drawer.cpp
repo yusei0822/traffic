@@ -40,6 +40,6 @@ void drawPedestrian(){
     Pedestrian *p = &pedestrians[i];
     p->decideAcceleration();
     p->walk();
-    AutoGL_DrawCircle3D(p->position()->x(),p->position()->y(),1,0,0,1,3,10);
+    AutoGL_DrawCircle3D(p->position()->x(),p->position()->y(),1,0,0,1,0.5,10);
   }
 }
