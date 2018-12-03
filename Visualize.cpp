@@ -8,6 +8,7 @@
 #include <math.h>
 #include "Drawer.h"
 #include "Pedestrian.h"
+#include "Wall.h"
 #include "Vector2D.h"
 #include "Route.h"
 #include <unistd.h>
@@ -17,7 +18,6 @@ using namespace std;
 extern double PresentTime;
 extern double TimeStep;
 
-class Pedestrian;
 
 vector<Pedestrian> pedestrians;
 vector<Wall> walls;
@@ -40,10 +40,11 @@ void visualize()
 {
   //ビューのパラメータ設定
   AutoGL_SetBackgroundColor(1, 1, 1);
-  AutoGL_SetViewSize(30);           //ビューの大きさ
+  AutoGL_SetViewSize(100);           //ビューの大きさ
   AutoGL_SetViewCenter(0, 0, 0);     //注視点
   AutoGL_SetViewDirection(0, 0, 1);  //視線方向
 
+  //歩行者と壁の記述
   AutoGL_SetViewRedrawCallback(redrawView);
 
  /* おまじない */
@@ -54,7 +55,6 @@ void visualize()
   AutoGL_SetPanelInMode2D();               /* 移動拡大縮小など */
 
   /* Animateボタンをつける */
-
   AutoGL_AddCallback(animateButtonCallback, "animateButtonCallback");
   AutoGL_SetLabel("Animate");
 
@@ -100,11 +100,7 @@ void idleEvent()
   // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
-　//壁の生成
-　static int wid = 0;
-　if((int)PresentTime == 0){
-  
-  }
+
   // 5秒ごとに歩行者を生成
   static int pid = 0;
   if((int)(PresentTime*10)%50 == 0 && PresentTime<25){

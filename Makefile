@@ -17,7 +17,7 @@ LDFLAGS = $(LIBS) -lm
 .c.o:
 	$(CXX) -c $< $(CXXFLAGS)
 
-OBJ =   main.o Visualize.o Drawer.o Pedestrian.o Calculation.o Vector2D.o Route.o
+OBJ =   main.o Visualize.o Drawer.o Pedestrian.o Calculation.o Vector2D.o Route.o Wall.o
 
 all : traffic
 
