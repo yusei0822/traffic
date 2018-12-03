@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// 他ファイルで定義している変数の読み込み
 extern vector<Pedestrian> pedestrians;
 extern vector<Wall> walls;
 
@@ -45,14 +46,18 @@ void drawWall(){
    }
  }
 
+// 歩行者の描画
 void drawPedestrian(){
+  // 色の設定（青色）
   AutoGL_SetColor(0,0,1);
-
   for(unsigned int i=0;i<pedestrians.size();i++)
   {
-    Pedestrian *p = &pedestrians[i];
-    p->decideAcceleration();
-    p->walk();
-    AutoGL_DrawCircle3D(p->position()->x(),p->position()->y(),1,0,0,1,0.5,10);
+      Pedestrian *p = &pedestrians[i];
+      // 加速度を決定
+      p->decideAcceleration();
+      // 加速度を元に動かす
+      p->walk();
+      // 歩行者の形を定義
+      AutoGL_DrawCircle3D(p->position()->x(),p->position()->y(),1,0,0,1,0.5,10);
   }
 }
