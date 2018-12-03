@@ -20,6 +20,7 @@ extern double TimeStep;
 class Pedestrian;
 
 vector<Pedestrian> pedestrians;
+vector<Wall> walls;
 
 //再描画
 static void redrawView();
@@ -73,10 +74,6 @@ void redrawView()
 {
   drawPedestrian();
   drawWall();
-  drawWall2();
-  drawWall3();
-  drawWall4();
-
 }
 
 void animateButtonCallback(void)
@@ -100,13 +97,17 @@ void animateButtonCallback(void)
 void idleEvent()
 {
   PresentTime += TimeStep;
-
+  // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
-
+　//壁の生成
+　static int wid = 0;
+　if((int)PresentTime == 0){
+  
+  }
+  // 5秒ごとに歩行者を生成
   static int pid = 0;
-  if((int)(PresentTime*10)%50 == 0 && PresentTime<25)
-  {
+  if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
     // サブゴールの設定
     vector<pair<double, double> > point;
     point.push_back(make_pair(-25, -25));
@@ -119,25 +120,20 @@ void idleEvent()
     point.push_back(make_pair(-25, -25));
     point.push_back(make_pair(25, -25));
     point.push_back(make_pair(-25, -25));
-
     // 経路作成
     Route* route = new Route();
-    for(unsigned int i = 0; i < point.size(); i++)
-    {
+    for(unsigned int i = 0; i < point.size(); i++){
       Vector2D* vec = new Vector2D(point[i].first, point[i].second);
       route->addNext(vec);
     }
-
     // 初速度ベクトル
     Vector2D* v0 = new Vector2D(0,0);
     Pedestrian *p = new Pedestrian(pid, route, v0);
     pedestrians.push_back(*p);
     pid++;
   }
-
-
   AutoGL_DrawView();
-  // 見やすいように処理を一時的に止める
+  // 可視化時に見やすいように処理を一時的に止める
   usleep(1000000 * TimeStep);
 }
 

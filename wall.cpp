@@ -1,7 +1,7 @@
 #include "Wall.h"
 
 // Wallの初期設定関数
-Wall::Wall(double x, double y, double dx, double dy, double angle){
+Wall::Wall(int id;double x, double y, double dx, double dy, double angle){
   _x = x;
   _y = y;
   _dx = dx;
@@ -12,6 +12,10 @@ Wall::Wall(double x, double y, double dx, double dy, double angle){
 Wall::~Wall(){};
 
 // 内部変数をいじれないようにする
+double Wall::id(){
+  return _id;
+}
+
 double Wall::x(){
   return _x;
 }

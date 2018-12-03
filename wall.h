@@ -2,6 +2,7 @@
 #define __WALL_H__
 
 class Wall{
+  int _id;
   double _x;
   double _y;
   double _dx;
@@ -11,7 +12,7 @@ class Wall{
 
 public:
   // コンストラクタ
-  Wall(double x, double y, double dx, double dy, double angle);
+  Wall(int id, double x, double y, double dx, double dy, double angle);
 
   // デストラクタ
   ~Wall();

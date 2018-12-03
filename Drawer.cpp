@@ -3,34 +3,34 @@
 #include <autogl.h>
 #include "Pedestrian.h"
 #include "Vector2D.h"
+#include "Wall.h"
 
 using namespace std;
 
 class Pedestrian;
+class Wall;
 
 extern vector<Pedestrian> pedestrians;
+extern vector<wall> walls;
 
 // 外枠の描画
  void drawWall(){
    AutoGL_SetColor(0,0,0);
-   AutoGL_DrawQuadrangle(-120,-120,0,-120,120,0,120,120,0,120,-120,0);
+   for (unsigned int i=0;i<walls.size();i++) {
+     Wall *w = &walls[i];
+     // 壁を構成する4点を定義（とりあえず角度は無視）
+     double x1 = w->x() - w->dx();
+     double y1 = w->y() - w->dy();
+     double x2 = w->x() - w->dx();
+     double y2 = w->y() + w->dy();
+     double x3 = w->x() + w->dx();
+     double y3 = w->y() + w->dy();
+     double x4 = w->x() + w->dx();
+     double y4 = w->y() - w->dy();
+     // 壁の記述
+     AutoGL_DrawQuadrangle(x1,y1,0,x2,y2,0,x3,y3,0,x4,y4,0);
+   }
  }
-
-void drawWall2(){
-  AutoGL_SetColor(1,1,1);
-  AutoGL_DrawQuadrangle(-115,-115,1,-115,115,1,115,115,1,115,-115,1);
-}
-
-void drawWall3(){
-  AutoGL_SetColor(0,0,0);
-  AutoGL_DrawQuadrangle(-60,35,2,-60,40,2,120,40,2,120,35,2);
-}
-
-void drawWall4(){
-  AutoGL_SetColor(0,0,0);
-  AutoGL_DrawQuadrangle(-60,-40,3,-60,-35,3,120,-35,3,120,-40,3);
-}
-
 
 void drawPedestrian(){
   AutoGL_SetColor(0,0,1);
