@@ -17,11 +17,11 @@ void drawWall(){
   AutoGL_SetColor(0,0,0);
   // 壁の記述
   walls.push_back(Wall(0,-30,0,1,30,0));
-  walls.push_back(Wall(1,0,30,1,30,M_PI_2));
+  walls.push_back(Wall(1,-30,45,1,30,0));
   walls.push_back(Wall(2,30,0,1,30,0));
-  walls.push_back(Wall(3,0,-30,1,30,M_PI_2));
-  walls.push_back(Wall(4,10,10,1,20,M_PI_2));
-  walls.push_back(Wall(5,10,-10,1,20,M_PI_2));
+  walls.push_back(Wall(3,0,-30,1,30,0));
+  walls.push_back(Wall(4,10,10,1,10,0));
+  walls.push_back(Wall(5,10,-10,1,10,0));
   for (unsigned int i=0;i<walls.size();i++) {
     Wall *w = &walls[i];
      // 壁を構成する4点を定義（とりあえず角度は無視）
@@ -42,7 +42,7 @@ void drawWall(){
      double y_3 = x3 * sin(w->angle()) + y3 * cos(w->angle());
      double x_4 = x4 * cos(w->angle()) - y4 * sin(w->angle());
      double y_4 = x4 * sin(w->angle()) + y4 * cos(w->angle());
-     AutoGL_DrawQuadrangle(x1,y1,0,x2,y2,0,x3,y3,0,x4,y4,0);
+     AutoGL_DrawQuadrangle(x_4,y_4,0,x_1,y_1,0,x_2,y_2,0,x_3,y_3,0);
    }
  }
 
