@@ -18,7 +18,6 @@ using namespace std;
 extern double PresentTime;
 extern double TimeStep;
 
-
 vector<Pedestrian> pedestrians;
 vector<Wall> walls;
 
@@ -36,6 +35,7 @@ static void quitButtonCallback();
 
 double Size;
 
+// main関数の中で走る関数
 void visualize()
 {
   //ビューのパラメータ設定
@@ -100,7 +100,6 @@ void idleEvent()
   // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
-
   // 5秒ごとに歩行者を生成
   static int pid = 0;
   if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
