@@ -104,21 +104,21 @@ void idleEvent()
   static int pid = 0;
   if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
     // サブゴールの設定
-    vector<pair<double, double> > point;
-    point.push_back(make_pair(-25, -25));
-    point.push_back(make_pair(-25, 25));
-    point.push_back(make_pair(25, 25));
-    point.push_back(make_pair(-25, 25));
-    point.push_back(make_pair(-25, 0));
-    point.push_back(make_pair(25, 0));
-    point.push_back(make_pair(-25, 0));
-    point.push_back(make_pair(-25, -25));
-    point.push_back(make_pair(25, -25));
-    point.push_back(make_pair(-25, -25));
+    vector<pair<double, double> > subGoal;
+    subGoal.push_back(make_pair(-25, -25));
+    subGoal.push_back(make_pair(-25, 25));
+    subGoal.push_back(make_pair(25, 25));
+    subGoal.push_back(make_pair(-25, 25));
+    subGoal.push_back(make_pair(-25, 0));
+    subGoal.push_back(make_pair(25, 0));
+    subGoal.push_back(make_pair(-25, 0));
+    subGoal.push_back(make_pair(-25, -25));
+    subGoal.push_back(make_pair(25, -25));
+    subGoal.push_back(make_pair(-25, -25));
     // 経路作成
     Route* route = new Route();
-    for(unsigned int i = 0; i < point.size(); i++){
-      Vector2D* vec = new Vector2D(point[i].first, point[i].second);
+    for(unsigned int i = 0; i < subGoal.size(); i++){
+      Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route->addNext(vec);
     }
     // 初速度ベクトル
