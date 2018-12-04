@@ -23,4 +23,7 @@ Vector2D* mVec(double k, Vector2D* v);
 // 単位ベクトルを返す関数
 Vector2D* uVec(Vector2D* v);
 
+// 座標を回転させる関数
+void rotation2D(double * xp, double * yp, double x, double y, double xc, double yc, double theta);
+
 #endif

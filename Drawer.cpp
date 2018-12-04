@@ -34,14 +34,11 @@ void drawWall(){
      double x4 = w->x() + w->dx();
      double y4 = w->y() - w->dy();
      // 壁を構成する4点を回転させる
-     double x_1 = x1 * cos(w->angle()) - y1 * sin(w->angle());
-     double y_1 = x1 * sin(w->angle()) + y1 * cos(w->angle());
-     double x_2 = x2 * cos(w->angle()) - y2 * sin(w->angle());
-     double y_2 = x2 * sin(w->angle()) + y2 * cos(w->angle());
-     double x_3 = x3 * cos(w->angle()) - y3 * sin(w->angle());
-     double y_3 = x3 * sin(w->angle()) + y3 * cos(w->angle());
-     double x_4 = x4 * cos(w->angle()) - y4 * sin(w->angle());
-     double y_4 = x4 * sin(w->angle()) + y4 * cos(w->angle());
+     double x_1,y_1,x_2,y_2,x_3,y_3,x_4,y_4;
+     rotation2D(&x_1,&y_1,x1,y1,_w->x(),w->y());
+     rotation2D(&x_2,&y_2,x2,y2,_w->x(),w->y());
+     rotation2D(&x_3,&y_3,x3,y3,_w->x(),w->y());
+     rotation2D(&x_4,&y_4,x4,y4,_w->x(),w->y());
      AutoGL_DrawQuadrangle(x_4,y_4,0,x_1,y_1,0,x_2,y_2,0,x_3,y_3,0);
    }
  }
