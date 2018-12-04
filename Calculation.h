@@ -6,6 +6,9 @@ class Vector2D;
 // 2点間の距離を計算する関数
 double length(double x1,double y1, double x2, double y2);
 
+// 線分と点の距離を返す関数
+double min_d2(x0, y0, x1, y1, x2, y2);
+
 int H(double x);
 
 // ベクトルの足し算をする関数

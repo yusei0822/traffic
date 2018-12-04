@@ -3,6 +3,7 @@
 #include "Pedestrian.h"
 #include "Calculation.h"
 #include "Vector2D.h"
+#include "Wall.h"
 #include "Route.h"
 
 using namespace std;
@@ -75,12 +76,39 @@ void Pedestrian::decideAcceleration(){
     // 相手側の希望進行距離
     double s_b = v_b->size() * 0.2;
     double b = sqrt( pow((r_a->size() + (sVec(r_ab, mVec(s_b, e_b)))->size()),2.0) - pow(s_b,2.0))/2.0;
+    // ポテンシャル場の計算
     double v_ab = v0_ab * exp(-1 * b / s);
     f2 = aVec(f2,mVec(-1 * v_ab, r_ab));
   }
     cout<<"f2:"<<"x="<<f2->x()<<",y="<<f2->y()<<endl;
   //===============================================
-  _acceleration = aVec(f1,f2);
+  // 壁からの斥力
+  // 変数の定義
+  double u0_ab = 10;
+  double r = 0.2;
+  /// 周囲の壁から受ける力を計算
+  for (unsigned int i=0; i<walls.size(); i++)
+  {
+      Wall *w = &walls[i];
+      // 壁を構成する4点を定義（とりあえず角度は無視）
+      double x1 = w->x() - w->dx();
+      double y1 = w->y() - w->dy();
+      double x2 = w->x() - w->dx();
+      double y2 = w->y() + w->dy();
+      double x3 = w->x() + w->dx();
+      double y3 = w->y() + w->dy();
+      double x4 = w->x() + w->dx();
+      double y4 = w->y() - w->dy();
+      // 壁までの相対距離
+      double r_ab = min_d2(_position->x(),_position->y(),x1,y1,x2,y2);
+      // ポテンシャル場の計算
+      double u_ab = u0_ab * exp(-1 * r_ab / r);
+      // 全ての壁からの力を合計する
+      f3 = aVec(f3,mVec(-1 * u_ab, r_ab));
+  }
+
+  //===============================================
+  _acceleration = aVec(aVec(f1,f2),f3);
 }
 
 bool Pedestrian::isArrived(){
