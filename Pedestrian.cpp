@@ -9,6 +9,7 @@
 using namespace std;
 
 extern vector<Pedestrian> pedestrians;
+extern vector<Wall> walls;
 extern double TimeStep;
 
 Pedestrian::Pedestrian(int id, Route* route, Vector2D* velocity){
@@ -89,6 +90,7 @@ void Pedestrian::decideAcceleration(){
   // 変数の定義
   double u0_ab = 10;
   double r = 0.2;
+  Vector2D* f3 = new Vector2D(0,0);
   /// 周囲の壁から受ける力を計算
   for (unsigned int i=0; i<walls.size(); i++)
   {
@@ -103,7 +105,7 @@ void Pedestrian::decideAcceleration(){
       // ポテンシャル場の計算
       double u_ab = u0_ab * exp(-1 * r_ab / r);
       // 全ての壁からの力を合計する
-      f3 = aVec(f3,mVec(-1 * u_ab, r_ab));
+      f3 = mVec(-1 * u_ab * r_ab,f3);
   }
   cout<<"f3:"<<"x="<<f3->x()<<",y="<<f3->y()<<endl;
   //===============================================

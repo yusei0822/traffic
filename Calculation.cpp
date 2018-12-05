@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 
 // 線分と点の距離を計算する
-double min_d2(x0, y0, x1, y1, x2, y2)
+double min_d2(double x0,double y0,double x1,double y1,double x2,double y2)
 {
   double a = x2 - x1;
   double b = y2 - y1;

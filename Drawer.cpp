@@ -2,6 +2,7 @@
 #include <vector>
 #include <autogl.h>
 #include <cmath>
+#include "Calculation.h"
 #include "Pedestrian.h"
 #include "Vector2D.h"
 #include "Wall.h"
@@ -35,10 +36,10 @@ void drawWall(){
      double y4 = w->y() - w->dy();
      // 壁を構成する4点を回転させる
      double x_1,y_1,x_2,y_2,x_3,y_3,x_4,y_4;
-     rotation2D(&x_1,&y_1,x1,y1,_w->x(),w->y());
-     rotation2D(&x_2,&y_2,x2,y2,_w->x(),w->y());
-     rotation2D(&x_3,&y_3,x3,y3,_w->x(),w->y());
-     rotation2D(&x_4,&y_4,x4,y4,_w->x(),w->y());
+     rotation2D(&x_1,&y_1,x1,y1,w->x(),w->y(),w->angle());
+     rotation2D(&x_2,&y_2,x2,y2,w->x(),w->y(),w->angle());
+     rotation2D(&x_3,&y_3,x3,y3,w->x(),w->y(),w->angle());
+     rotation2D(&x_4,&y_4,x4,y4,w->x(),w->y(),w->angle());
      AutoGL_DrawQuadrangle(x_4,y_4,0,x_1,y_1,0,x_2,y_2,0,x_3,y_3,0);
    }
  }
