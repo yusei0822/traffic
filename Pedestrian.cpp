@@ -58,7 +58,7 @@ void Pedestrian::decideAcceleration(){
   /// 移動目標に向かう単位ベクトル
     Vector2D* e_a = uVec(sVec(_route->next(), _position));
     Vector2D* f1 = mVec(1/0.5, sVec(mVec(_desiredSpeed, e_a), _velocity));
-    cout<<"f1:"<<"x="<<f1->x()<<",y="<<f1->y()<<endl;
+    // cout<<"f1:"<<"x="<<f1->x()<<",y="<<f1->y()<<endl;
   //===============================================
     // 他のエージェントからの斥力
     // 変数の定義
@@ -100,14 +100,15 @@ void Pedestrian::decideAcceleration(){
       double y1 = w->y() - w->dy();
       double x2 = w->x() - w->dx();
       double y2 = w->y() + w->dy();
-      // 壁までの相対距離
+      // 壁までの最短距離
       double r_ab = min_d2(_position->x(),_position->y(),x1,y1,x2,y2);
       // ポテンシャル場の計算
       double u_ab = u0_ab * exp(-1 * r_ab / r);
+      // cout << u_ab << endl;
       // 全ての壁からの力を合計する
       f3 = mVec(-1 * u_ab * r_ab,f3);
   }
-  cout<<"f3:"<<"x="<<f3->x()<<",y="<<f3->y()<<endl;
+  // cout<<"f3:"<<"x="<<f3->x()<<",y="<<f3->y()<<endl;
   //===============================================
   _acceleration = aVec(aVec(f1,f2),f3);
 }
