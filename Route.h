@@ -21,6 +21,8 @@ public:
   Route();
   ~Route();
 
+  int routeSize();
+
   void addNext(Vector2D* next);
 
 // 現在の目的地の座標を返す

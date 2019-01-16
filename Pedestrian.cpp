@@ -40,10 +40,12 @@ Route* Pedestrian::route(){
 
 // 歩行者を移動させる関数
 void Pedestrian::walk(){
+  // 現在の速度に加速度を加算する
   _velocity = aVec(_velocity, mVec(TimeStep, _acceleration));
+  // 現在の座標に速度を加算する
   _position = aVec(_position, _velocity);
-
-  cout<<_position->y()<<endl;
+  //
+  // cout<<_position->y()<<endl;
   // 目的地に到着した場合は次の目的地を選択する
   if(isArrived()){
     _route->incrementRouteIndex();
@@ -52,7 +54,6 @@ void Pedestrian::walk(){
 
 // 加速度を決定する関数
 void Pedestrian::decideAcceleration(){
-
   //===============================================
   // 移動目標に近づく力
   /// 移動目標に向かう単位ベクトル
@@ -96,12 +97,13 @@ void Pedestrian::decideAcceleration(){
   {
       Wall *w = &walls[i];
       // 壁を構成する直線を定義するための点を定義
-      double x1 = w->x() - w->dx();
-      double y1 = w->y() - w->dy();
-      double x2 = w->x() - w->dx();
-      double y2 = w->y() + w->dy();
+      double x_1,y_1,x_2,y_2,x_3,y_3,x_4,y_4;
+      rotation2D(&x_1,&y_1, w->dx(),w->dy(),w->x(),w->y(),w->angle());
+      rotation2D(&x_2,&y_2, -1 * w->dx(),w->dy(),w->x(),w->y(),w->angle());
+      rotation2D(&x_3,&y_3, -1 * w->dx(), -1 * w->dy(),w->x(),w->y(),w->angle());
+      rotation2D(&x_4,&y_4, w->dx(),-1 * w->dy(),w->x(),w->y(),w->angle());
       // 壁までの最短距離
-      double r_ab = min_d2(_position->x(),_position->y(),x1,y1,x2,y2);
+      double r_ab = min_d2(_position->x(),_position->y(),(x_1+x_2)/2,(y_1+y_2)/2,(x_3+x_4)/2,(y_3+y_4)/2);
       // ポテンシャル場の計算
       double u_ab = u0_ab * exp(-1 * r_ab / r);
       // cout << u_ab << endl;
@@ -109,6 +111,10 @@ void Pedestrian::decideAcceleration(){
       f3 = mVec(-1 * u_ab * r_ab,f3);
   }
   // cout<<"f3:"<<"x="<<f3->x()<<",y="<<f3->y()<<endl;
+  //===============================================
+  // attractive effects
+  // 変数の定義
+  // 本モデルでは発生しないので記述しない
   //===============================================
   _acceleration = aVec(aVec(f1,f2),f3);
 }

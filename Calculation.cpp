@@ -68,9 +68,9 @@ Vector2D* uVec(Vector2D* v){
   return vec;
 }
 
-void rotation2D(double * xp, double * yp, double x, double y, double xc, double yc, double theta){
+void rotation2D(double * xp, double * yp, double dx, double dy, double xc, double yc, double theta){
     // 数学座標と同じ様にするためにy座標値を反転
-    y = -y; yc = -yc;
-    *xp = (x - xc) * cos(theta) - (y - yc) * sin(theta) + xc;
-    *yp = -1.0 * ( (x - xc) * sin(theta) + (y - yc) * cos(theta) + yc );
+    dy = -dy; yc = -yc;
+    *xp = dx * cos(theta) - dy * sin(theta) + xc;
+    *yp = -1.0 * ( dx * sin(theta) + dy * cos(theta) + yc );
 }
