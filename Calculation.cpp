@@ -14,8 +14,11 @@ double min_d2(double x0,double y0,double x1,double y1,double x2,double y2)
   if( tt < 0 ) {
     return (x1-x0)*(x1-x0) + (y1-y0)*(y1-y0);
   }
-  if( tt > r2 ) {
+  else if( tt > r2 ) {
     return (x2-x0)*(x2-x0) + (y2-y0)*(y2-y0);
+  }
+  else{
+    return 0;
   }
   double f1 = a*(y1-y0)-b*(x1-x0);
   return (f1*f1)/r2;
