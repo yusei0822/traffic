@@ -9,6 +9,10 @@ Route::Route(){
 
 Route::~Route(){};
 
+int Route::routeSize(){
+  return _route.size();
+}
+
 // 次のサブゴールを追加する関数
 void Route::addNext(Vector2D* next){
    _route.push_back(next);

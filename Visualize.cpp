@@ -40,7 +40,7 @@ void visualize()
 {
   //ビューのパラメータ設定
   AutoGL_SetBackgroundColor(1, 1, 1);
-  AutoGL_SetViewSize(100);           //ビューの大きさ
+  AutoGL_SetViewSize(50);           //ビューの大きさ
   AutoGL_SetViewCenter(0, 0, 0);     //注視点
   AutoGL_SetViewDirection(0, 0, 1);  //視線方向
 
@@ -106,15 +106,15 @@ void idleEvent()
     // サブゴールの設定
     vector<pair<double, double> > subGoal;
     subGoal.push_back(make_pair(-25, -25));
-    subGoal.push_back(make_pair(-25, 25));
-    subGoal.push_back(make_pair(25, 25));
-    subGoal.push_back(make_pair(-25, 25));
+    subGoal.push_back(make_pair(-25, 20));
+    subGoal.push_back(make_pair(25, 20));
+    subGoal.push_back(make_pair(-25, 20));
     subGoal.push_back(make_pair(-25, 0));
     subGoal.push_back(make_pair(25, 0));
     subGoal.push_back(make_pair(-25, 0));
-    subGoal.push_back(make_pair(-25, -25));
-    subGoal.push_back(make_pair(25, -25));
-    subGoal.push_back(make_pair(-25, -25));
+    subGoal.push_back(make_pair(-25, -20));
+    subGoal.push_back(make_pair(25, -20));
+    subGoal.push_back(make_pair(-25, -20));
     // 経路作成
     Route* route = new Route();
     for(unsigned int i = 0; i < subGoal.size(); i++){
