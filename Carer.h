@@ -10,5 +10,6 @@ public:
   vool check();
   // 介護対象の座標を取得
   Vector2D* carePosition();
-
+  // 介護行動を開始
+  void care();
 };
