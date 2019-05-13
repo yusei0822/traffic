@@ -2,5 +2,9 @@
 
 class Carer : public Pedestrian
 {
+private:
+
+public:
+
 
 };
