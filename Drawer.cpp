@@ -4,6 +4,7 @@
 #include <cmath>
 #include "Calculation.h"
 #include "Pedestrian.h"
+#include "Carer.h"
 #include "Vector2D.h"
 #include "Wall.h"
 #include "Route.h"
@@ -12,6 +13,7 @@ using namespace std;
 
 // 他ファイルで定義している変数の読み込み
 extern vector<Pedestrian> pedestrians;
+extern vector<Carer> carers;
 extern vector<Wall> walls;
 
 // 外枠の描画
@@ -61,4 +63,30 @@ void drawPedestrian(){
       AutoGL_DrawCircle3D(p->position()->x(),p->position()->y(),1,0,0,1,0.5,5);
   }
   pedestrians = tmpPedestrians;
+}
+
+// 介護士の描画
+void drawCarer(){
+  // 色の設定（青色）
+  AutoGL_SetColor(0,0,1);
+  vector<Carer> tmpCarers;
+  tmpCarers.clear();
+  for(unsigned int i=0;i<carers.size();i++)
+  {
+      Carer *c = &carers[i];
+      // 加速度を決定
+      c->decideAcceleration();
+      // 加速度を元に動かす
+      c->walk();
+      // 最終地点に到達した歩行者を削除する
+      if(c->isArrived() && c->route()->routeSize()-1 == c->route()->routeIndex()){
+        //delete p;
+      }
+      else{
+        tmpCarers.push_back(*c);
+      }
+      // 歩行者の形を定義
+      AutoGL_DrawCircle3D(c->position()->x(),c->position()->y(),1,0,0,1,0.5,5);
+  }
+  carers = tmpCarers;
 }

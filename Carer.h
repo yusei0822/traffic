@@ -1,15 +1,48 @@
-// クラスの定義と関数の定義を行う
+#ifndef __CARER_H__
+#define __CARER_H__
 
-class Carer : public Pedestrian
-{
-private:
+#include <vector>
+
+using namespace std;
+
+class Vector2D;
+class Route;
+
+class Carer{
+
+protected:
   // ID
   int _cid;
+  // 速度
+  Vector2D* _velocity;
+  // 加速度
+  Vector2D* _acceleration;
+  // 現在の位置
+  Vector2D* _position;
+  // 通過経路
+  Route* _route;
+  // 希望速度の大きさ
+  double _desiredSpeed;
+
 public:
-  // イベントフラグを認知したか
-  vool check();
-  // 介護対象の座標を取得
-  Vector2D* carePosition();
-  // 介護行動を開始
-  void care();
+  // コンストラクタ
+  Carer(int id, Route* route, Vector2D* velocity);
+  // デストラクタ
+  ~Carer();
+  // 現在の場所を返す
+  Vector2D* position();
+  // 速度を返す
+  Vector2D* velocity();
+  // 加速度を返す
+  Vector2D* acceleration();
+  // 通過経路を返す
+  Route* route();
+  // 移動する
+  void walk();
+  // 加速度を決定する
+  void decideAcceleration();
+  // 目的地に到着したか
+  bool isArrived();
 };
+
+#endif

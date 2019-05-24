@@ -8,6 +8,7 @@
 #include <math.h>
 #include "Drawer.h"
 #include "Pedestrian.h"
+#include "Carer.h"
 #include "Wall.h"
 #include "Vector2D.h"
 #include "Route.h"
@@ -19,6 +20,7 @@ extern double PresentTime;
 extern double TimeStep;
 
 vector<Pedestrian> pedestrians;
+vector<Carer> carers;
 vector<Wall> walls;
 
 //再描画
@@ -73,6 +75,7 @@ void visualize()
 void redrawView()
 {
   drawPedestrian();
+  drawCarer();
   drawWall();
 }
 
@@ -100,8 +103,8 @@ void idleEvent()
   // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
-  // 5秒ごとに歩行者を生成
-  static int pid = 0;
+  // 5秒ごとに介護士を生成
+  static int cid = 0;
   if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
     // サブゴールの設定
     vector<pair<double, double> > subGoal;
@@ -123,9 +126,10 @@ void idleEvent()
     }
     // 初速度ベクトル
     Vector2D* v0 = new Vector2D(0,0);
-    Pedestrian *p = new Pedestrian(pid, route, v0);
-    pedestrians.push_back(*p);
-    pid++;
+    // Pedestrian *p = new Pedestrian(pid, route, v0);
+    Carer *c = new Carer(cid, route, v0);
+    carers.push_back(*c);
+    cid++;
   }
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
