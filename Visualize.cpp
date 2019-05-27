@@ -74,7 +74,7 @@ void visualize()
 // 壁と歩行者の記述
 void redrawView()
 {
-  drawPedestrian();
+  // drawPedestrian();
   drawCarer();
   drawWall();
 }
@@ -103,37 +103,56 @@ void idleEvent()
   // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
-  // 5秒ごとに介護士を生成
+  // 介護士を生成
   static int cid = 0;
-  if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
-    // サブゴールの設定
-    vector<pair<double, double> > subGoal;
-    subGoal.push_back(make_pair(-25, -25));
-    subGoal.push_back(make_pair(-25, 20));
-    subGoal.push_back(make_pair(25, 20));
-    subGoal.push_back(make_pair(-25, 20));
-    subGoal.push_back(make_pair(-25, 0));
-    subGoal.push_back(make_pair(25, 0));
-    subGoal.push_back(make_pair(-25, 0));
-    subGoal.push_back(make_pair(-25, -20));
-    subGoal.push_back(make_pair(25, -20));
-    subGoal.push_back(make_pair(-25, -20));
-    // 経路作成
-    Route* route = new Route();
+  if((int)PresentTime == 1.0){
+    Route* route1 = new Route();
+    vector<pair<double, double > > subGoal;
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(-25,25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
-      route->addNext(vec);
+      route1->addNext(vec);
     }
-    // 初速度ベクトル
     Vector2D* v0 = new Vector2D(0,0);
-    // Pedestrian *p = new Pedestrian(pid, route, v0);
-    Carer *c = new Carer(cid, route, v0);
-    carers.push_back(*c);
-    cid++;
+    Carer *c1 = new Carer(cid, route1, v0);
+    carers.push_back(*c1);
   }
+  // cid++;
+  // Carer *c2 = new Carer(cid, route, v0);
+  // if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
+  //   // サブゴールの設定
+  //   vector<pair<double, double> > subGoal;
+  //   subGoal.push_back(make_pair(-25, -25));
+  //   subGoal.push_back(make_pair(-25, 20));
+  //   subGoal.push_back(make_pair(25, 20));
+  //   subGoal.push_back(make_pair(-25, 20));
+  //   subGoal.push_back(make_pair(-25, 0));
+  //   subGoal.push_back(make_pair(25, 0));
+  //   subGoal.push_back(make_pair(-25, 0));
+  //   subGoal.push_back(make_pair(-25, -20));
+  //   subGoal.push_back(make_pair(25, -20));
+  //   subGoal.push_back(make_pair(-25, -20));
+  //   // 経路作成
+  //   Route* route = new Route();
+  //   for(unsigned int i = 0; i < subGoal.size(); i++){
+  //     Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
+  //     route->addNext(vec);
+  //   }
+  //   // 初速度ベクトル
+  //   Vector2D* v0 = new Vector2D(0,0);
+  //   // Pedestrian *p = new Pedestrian(pid, route, v0);
+  //   Carer *c = new Carer(cid, route, v0);
+  //   carers.push_back(*c);
+  //   cid++;
+  // }
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
-  usleep(1000000 * TimeStep);
+  usleep(500000 * TimeStep);
 }
 
 void quitButtonCallback()
