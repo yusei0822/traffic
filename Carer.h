@@ -43,6 +43,8 @@ public:
   void decideAcceleration();
   // 目的地に到着したか
   bool isArrived();
+  // 介護を行う
+  void care();
 };
 
 #endif
