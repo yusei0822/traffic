@@ -106,7 +106,7 @@ void idleEvent()
   // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
-  
+
   // 介護士を生成
   static int cid = 0;
   Vector2D* v0 = new Vector2D(0,0);
@@ -142,22 +142,22 @@ void idleEvent()
   // 被介護者の作成
   int iniX = 7;
   int iniY = 7;
+  int crid = 0;
   vector<pair<int,int > > iniPositions;
   // 被介護者の初期位置を入力
   iniPositions.push_back(make_pair(iniX,0));
   iniPositions.push_back(make_pair(iniY,0));
   iniPositions.push_back(make_pair(-iniX,0));
   iniPositions.push_back(make_pair(0,-iniY));
-  if((int)(PresentTime*10)/10 == 0.0){
-    for(unsigned i = 0;i < iniPosition.size();i++){
-      int crid = 0;
+  if((int)(PresentTime*10)/10 == 1.0){
+    for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
       Route* crRoute = new Route();
-      crRoute->addNext(iniPosition)
-      CareRecipint *cr = new CareRecipint(crid, crRoute, v0)
+      crRoute->addNext(iniPosition);
+      CareRecipient *cr = new CareRecipient(crid, crRoute, v0);
+      careRecipients.push_back(*cr);
       crid++;
     }
-    careRecipients.push_back(*cr);
   }
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める

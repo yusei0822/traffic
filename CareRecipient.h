@@ -43,6 +43,8 @@ public:
   void decideAcceleration();
   // 目的地に到着したか
   bool isArrived();
+  // イベントフラグ
+  bool shouldBeCared();
 };
 
 #endif

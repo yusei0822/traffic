@@ -1,5 +1,8 @@
 #include <iostream>
 #include <math.h>
+#include <time.h>
+#include <stdlib.h>
+#include "Carer.h"
 #include "CareRecipient.h"
 #include "Calculation.h"
 #include "Vector2D.h"
@@ -12,8 +15,9 @@ extern vector<Carer> carers;
 extern vector<CareRecipient> careRecipients;
 extern vector<Wall> walls;
 extern double TimeStep;
+extern double PresentTime;
 
-careRecipient::careRecipient(int id, Route* route, Vector2D* velocity){
+CareRecipient::CareRecipient(int id, Route* route, Vector2D* velocity){
   _crid = id;
   _route = route;
   _velocity = velocity;
@@ -24,37 +28,37 @@ careRecipient::careRecipient(int id, Route* route, Vector2D* velocity){
   _route->incrementRouteIndex();
 }
 
-careRecipientecipient::~careRecipient(){
+CareRecipient::~CareRecipient(){
 }
 
-Vector2D* Carer::position(){
+Vector2D* CareRecipient::position(){
   return _position;
 }
 
-Vector2D* careRecipient::velocity(){
+Vector2D* CareRecipient::velocity(){
   return _velocity;
 }
 
-Route* careRecipient::route(){
+Route* CareRecipient::route(){
   return _route;
 }
 
 // 歩行者を移動させる関数
-void careRecipient::walk(){
+void CareRecipient::walk(){
   // 現在の速度に加速度を加算する
   _velocity = aVec(_velocity, mVec(TimeStep, _acceleration));
   // 現在の座標に速度を加算する
   _position = aVec(_position, _velocity);
   //
   // cout<<_position->y()<<endl;
-  // 目的地に到着した場合は次の目的地を選択する
+  // 目的地に到着した場合は次の目的地を選択する>
   if(isArrived()){
     _route->incrementRouteIndex();
   }
 }
 
 // 加速度を決定する関数
-void careRecipient::decideAcceleration(){
+void CareRecipient::decideAcceleration(){
   //===============================================
   // 移動目標に近づく力
   /// 移動目標に向かう単位ベクトル
@@ -63,15 +67,15 @@ void careRecipient::decideAcceleration(){
     // cout<<"f1:"<<"x="<<f1->x()<<",y="<<f1->y()<<endl;
   //===============================================
     // 他のエージェントからの斥力
-    // 変数の定義
+    // 変数の定義>
       double v0_ab = 2.1;
       double s = 0.3;
       Vector2D* f2 = new Vector2D(0,0);
     /// 自分以外の全エージェントから受ける力を計算
     for (unsigned int i=0; i<carers.size(); i++){
-      if(&(carers[i]) == this){
-        continue;
-      }
+      // if(&(carers[i]) == this){
+      //   continue;
+      // }
     // 相対距離の計算
         Vector2D* r_a = mVec(0.2, _velocity);
         Vector2D* v_b = carers[i].velocity();
@@ -87,7 +91,7 @@ void careRecipient::decideAcceleration(){
         f2 = aVec(f2,mVec(-1 * v_ab, r_ab));
     }
     // cout<<"f2:"<<"x="<<f2->x()<<",y="<<f2->y()<<endl;
-  //===============================================
+  //===============================================){
   // 壁からの斥力
   // 変数の定義
   double u0_ab = 10;
@@ -121,7 +125,7 @@ void careRecipient::decideAcceleration(){
 }
 
 // 目的地に到達したかどうかを判定する関数
-bool careRecipient::isArrived()
+bool CareRecipient::isArrived()
 {
     bool flag = false;
     Vector2D* vec = sVec(_route->next(), _position);
@@ -131,4 +135,15 @@ bool careRecipient::isArrived()
         flag = true;
     };
     return flag;
+}
+
+bool CareRecipient::shouldBeCared(){
+  bool flag = false;
+  while(PresentTime > 0){
+    srand(time(NULL));
+    if(rand()%100 == 0){
+      flag = true;
+    }
+  }
+  return flag;
 }

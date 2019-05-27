@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include "Carer.h"
+#include "CareRecipient.h"
 #include "Calculation.h"
 #include "Vector2D.h"
 #include "Wall.h"

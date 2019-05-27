@@ -30,7 +30,7 @@ void drawWall(){
   walls.push_back(Wall(1,0,y,1,30,M_PI/2));
   walls.push_back(Wall(2,x,0,1,30,0));
   walls.push_back(Wall(3,0,-y,1,30,M_PI/2));
-  walls.push_back(Wall(4,0,0,dx,dy,0));
+  walls.push_back(Wall(4,0,0,desk_dx,desk_dy,0));
   // walls.push_back(Wall(4,15,10,1,15,M_PI/2));
   // walls.push_back(Wall(5,15,-10,1,15,M_PI/2));
   for (unsigned int i=0;i<walls.size();i++) {
@@ -72,10 +72,10 @@ void drawCarer(){
 
 void drawCareRecipient(){
   AutoGL_SetColor(0,1,0);
-  vector<CareRecipint> tmpCareRecipients;
+  vector<CareRecipient> tmpCareRecipients;
   tmpCareRecipients.clear();
-  for(unsigned int i=0;1<CareRecipints.size();i++){
-    CareRecipint *cr = &careRecipients[i];
+  for(unsigned int i=0;1<careRecipients.size();i++){
+    CareRecipient *cr = &careRecipients[i];
     // // 加速度を決定
     // cr->decideAcceleration();
     // // 加速度を元に動かす
@@ -85,5 +85,5 @@ void drawCareRecipient(){
     // 被介護者の形を定義
     AutoGL_DrawCircle3D(cr->position()->x(),cr->position()->y(),1,0,0,1,0.5,5);
   }
-  CareRecipints = tmpCareRecipients;
+  careRecipients = tmpCareRecipients;
 }
