@@ -105,22 +105,39 @@ void idleEvent()
   cout<<"Time:"<<(int)PresentTime<<endl;
   // 介護士を生成
   static int cid = 0;
-  if((int)PresentTime == 1.0){
+  Vector2D* v0 = new Vector2D(0,0);
+  if((int)(PresentTime*10)/10 == 1.0){
     Route* route1 = new Route();
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
     subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
     subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(-25,25));
     subGoal.push_back(make_pair(-25,25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route1->addNext(vec);
     }
-    Vector2D* v0 = new Vector2D(0,0);
     Carer *c1 = new Carer(cid, route1, v0);
     carers.push_back(*c1);
+  }
+  cid = 1;
+  if((int)(PresentTime*10)/10 == 2.0){
+    Route* route2 = new Route();
+    vector<pair<double, double > > subGoal;
+    subGoal.push_back(make_pair(25,25));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(-25,25));
+    for(unsigned int i = 0; i < subGoal.size(); i++){
+      Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
+      route2->addNext(vec);
+    }
+    Carer *c2 = new Carer(cid, route2, v0);
+    carers.push_back(*c2);
   }
   // cid++;
   // Carer *c2 = new Carer(cid, route, v0);
@@ -152,7 +169,7 @@ void idleEvent()
   // }
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
-  usleep(500000 * TimeStep);
+  usleep(1000000 * TimeStep);
 }
 
 void quitButtonCallback()

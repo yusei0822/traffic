@@ -83,7 +83,7 @@ void drawCarer(){
       c->walk();
       // 最終地点に到達した歩行者を削除する
       if(c->isArrived() && c->route()->routeSize()-1 == c->route()->routeIndex()){
-        //delete p;
+        delete c;
       }
       else{
         tmpCarers.push_back(*c);
