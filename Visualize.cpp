@@ -9,6 +9,7 @@
 #include "Drawer.h"
 #include "Pedestrian.h"
 #include "Carer.h"
+#include "CareRecipient.h"
 #include "Wall.h"
 #include "Vector2D.h"
 #include "Route.h"
@@ -19,8 +20,10 @@ using namespace std;
 extern double PresentTime;
 extern double TimeStep;
 
+// 各モデルの配列
 vector<Pedestrian> pedestrians;
 vector<Carer> carers;
+vector<CareRecipient> careRecipients;
 vector<Wall> walls;
 
 //再描画
@@ -74,8 +77,8 @@ void visualize()
 // 壁と歩行者の記述
 void redrawView()
 {
-  // drawPedestrian();
   drawCarer();
+  drawCareRecipient();
   drawWall();
 }
 
@@ -103,17 +106,15 @@ void idleEvent()
   // コンソール上で見やすいように時間を表示
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
+  
   // 介護士を生成
   static int cid = 0;
   Vector2D* v0 = new Vector2D(0,0);
+  // 一人目の介護士の作成
   if((int)(PresentTime*10)/10 == 1.0){
     Route* route1 = new Route();
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(25,-25));
-    subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(-25,25));
     subGoal.push_back(make_pair(-25,25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -122,15 +123,13 @@ void idleEvent()
     Carer *c1 = new Carer(cid, route1, v0);
     carers.push_back(*c1);
   }
+
+  // 二人目の介護士の作成
   cid = 1;
   if((int)(PresentTime*10)/10 == 2.0){
     Route* route2 = new Route();
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(25,25));
-    subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(25,-25));
-    subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(-25,25));
     subGoal.push_back(make_pair(-25,25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -139,34 +138,27 @@ void idleEvent()
     Carer *c2 = new Carer(cid, route2, v0);
     carers.push_back(*c2);
   }
-  // cid++;
-  // Carer *c2 = new Carer(cid, route, v0);
-  // if((int)(PresentTime*10)%50 == 0 && PresentTime<25){
-  //   // サブゴールの設定
-  //   vector<pair<double, double> > subGoal;
-  //   subGoal.push_back(make_pair(-25, -25));
-  //   subGoal.push_back(make_pair(-25, 20));
-  //   subGoal.push_back(make_pair(25, 20));
-  //   subGoal.push_back(make_pair(-25, 20));
-  //   subGoal.push_back(make_pair(-25, 0));
-  //   subGoal.push_back(make_pair(25, 0));
-  //   subGoal.push_back(make_pair(-25, 0));
-  //   subGoal.push_back(make_pair(-25, -20));
-  //   subGoal.push_back(make_pair(25, -20));
-  //   subGoal.push_back(make_pair(-25, -20));
-  //   // 経路作成
-  //   Route* route = new Route();
-  //   for(unsigned int i = 0; i < subGoal.size(); i++){
-  //     Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
-  //     route->addNext(vec);
-  //   }
-  //   // 初速度ベクトル
-  //   Vector2D* v0 = new Vector2D(0,0);
-  //   // Pedestrian *p = new Pedestrian(pid, route, v0);
-  //   Carer *c = new Carer(cid, route, v0);
-  //   carers.push_back(*c);
-  //   cid++;
-  // }
+
+  // 被介護者の作成
+  int iniX = 7;
+  int iniY = 7;
+  vector<pair<int,int > > iniPositions;
+  // 被介護者の初期位置を入力
+  iniPositions.push_back(make_pair(iniX,0));
+  iniPositions.push_back(make_pair(iniY,0));
+  iniPositions.push_back(make_pair(-iniX,0));
+  iniPositions.push_back(make_pair(0,-iniY));
+  if((int)(PresentTime*10)/10 == 0.0){
+    for(unsigned i = 0;i < iniPosition.size();i++){
+      int crid = 0;
+      Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
+      Route* crRoute = new Route();
+      crRoute->addNext(iniPosition)
+      CareRecipint *cr = new CareRecipint(crid, crRoute, v0)
+      crid++;
+    }
+    careRecipients.push_back(*cr);
+  }
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
   usleep(1000000 * TimeStep);

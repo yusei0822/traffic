@@ -9,6 +9,7 @@
 using namespace std;
 
 extern vector<Carer> carers;
+extern vector<CareRecipient> careRecipients;
 extern vector<Wall> walls;
 extern double TimeStep;
 

@@ -17,12 +17,15 @@ public:
   Route();
   ~Route();
 
+  int routeIndex();
+
   int routeSize();
 
   void addNext(Vector2D* next);
+
 // 現在の目的地の座標を返す
   Vector2D* next();
-  int routeIndex();
+
   void incrementRouteIndex();
 
 };
