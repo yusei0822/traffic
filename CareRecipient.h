@@ -13,6 +13,8 @@ class CareRecipient{
 protected:
   // ID
   int _crid;
+  // 内部状態
+  int status;
   // 速度
   Vector2D* _velocity;
   // 加速度
@@ -44,7 +46,7 @@ public:
   // 目的地に到着したか
   bool isArrived();
   // イベントフラグ
-  bool shouldBeCared();
+  void changeStatus();
 };
 
 #endif

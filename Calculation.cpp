@@ -59,13 +59,16 @@ Vector2D* mVec(double k, Vector2D* v){
 
 // 単位ベクトルを返す
 Vector2D* uVec(Vector2D* v){
-
+  if (v->size()==0){
+    return v;
+  } else {
   double x = v->x()/v->size();
   double y = v->y()/v->size();
 
   Vector2D* vec = new Vector2D(x, y);
 
   return vec;
+  }
 }
 
 void rotation2D(double * xp, double * yp, double dx, double dy, double xc, double yc, double theta){

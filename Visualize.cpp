@@ -107,15 +107,22 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
 
+  //ある時刻になったら被介護者の色が変わる
+  if(PresentTime == 5.0){
+    careRecipients[0].changeStatus();
+  }
+
   // 介護士を生成
   static int cid = 0;
   Vector2D* v0 = new Vector2D(0,0);
   // 一人目の介護士の作成
-  if((int)(PresentTime*10)/10 == 1.0){
+  if(PresentTime > 0.99 && PresentTime<1.01){
     Route* route1 = new Route();
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route1->addNext(vec);
@@ -126,9 +133,11 @@ void idleEvent()
 
   // 二人目の介護士の作成
   cid = 1;
-  if((int)(PresentTime*10)/10 == 2.0){
+  if(PresentTime > 0.99 && PresentTime<1.01){
     Route* route2 = new Route();
     vector<pair<double, double > > subGoal;
+    subGoal.push_back(make_pair(25,25));
+    subGoal.push_back(make_pair(-25,25));
     subGoal.push_back(make_pair(25,25));
     subGoal.push_back(make_pair(-25,25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
@@ -146,7 +155,7 @@ void idleEvent()
   vector<pair<int,int > > iniPositions;
   // 被介護者の初期位置を入力
   iniPositions.push_back(make_pair(iniX,0));
-  iniPositions.push_back(make_pair(iniY,0));
+  iniPositions.push_back(make_pair(0,iniY));
   iniPositions.push_back(make_pair(-iniX,0));
   iniPositions.push_back(make_pair(0,-iniY));
   if((int)(PresentTime*10)/10 == 1.0){
@@ -154,7 +163,9 @@ void idleEvent()
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
       Route* crRoute = new Route();
       crRoute->addNext(iniPosition);
+      cout << crid << endl;
       CareRecipient *cr = new CareRecipient(crid, crRoute, v0);
+      cout << "crRoute:" << crRoute << endl;
       careRecipients.push_back(*cr);
       crid++;
     }
