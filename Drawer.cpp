@@ -49,7 +49,7 @@ void drawWall(){
 void drawCarer(){
   // 色の設定（青色）
   AutoGL_SetColor(0,0,1);
-  for(unsigned int i=0;careRecipients.size();i++){
+  for(unsigned int i=0;i < careRecipients.size();i++){
     if(careRecipients[i].status() == 1 && carers[0].status() == 0){
       carers[0].pick(careRecipients[i].position());
     }

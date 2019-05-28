@@ -28,7 +28,7 @@ public:
 
   void incrementRouteIndex();
 
-  void insertNext();
+  void insertNext(Vector2D* next);
 };
 
 #endif

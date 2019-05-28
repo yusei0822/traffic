@@ -30,6 +30,10 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
 Carer::~Carer(){
 }
 
+int Carer::status(){
+  return _status;
+}
+
 Vector2D* Carer::position(){
   return _position;
 }
