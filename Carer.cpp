@@ -1,5 +1,6 @@
 #include <iostream>
 #include <math.h>
+#include <vector>
 #include "Carer.h"
 #include "CareRecipient.h"
 #include "Calculation.h"
@@ -137,5 +138,5 @@ bool Carer::isArrived()
 
 void Carer::pick(Vector2D* next){
   _status = 1;
-  _route->insert(_route->begin()+route->routeIndex(),next);
+  _route->insertNext(next);
 }

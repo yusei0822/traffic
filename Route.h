@@ -28,6 +28,7 @@ public:
 
   void incrementRouteIndex();
 
+  void insertNext();
 };
 
 #endif

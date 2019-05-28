@@ -32,3 +32,7 @@ void Route::incrementRouteIndex(){
     _routeIndex++;
   }
 }
+
+void Route::insertNext(Vector2D* next){
+  _route.insert(_route.begin()+_routeIndex(),next);
+}
