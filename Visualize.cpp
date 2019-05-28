@@ -108,7 +108,7 @@ void idleEvent()
   cout<<"Time:"<<(int)PresentTime<<endl;
 
   //ある時刻になったら被介護者の色が変わる
-  if(PresentTime == 5.0){
+  if(PresentTime > 4.99 && PresentTime<5.01){
     careRecipients[0].changeStatus();
   }
 

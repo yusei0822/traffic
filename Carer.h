@@ -13,6 +13,8 @@ class Carer{
 protected:
   // ID
   int _cid;
+  // 看護状況
+  int _status;
   // 速度
   Vector2D* _velocity;
   // 加速度
@@ -29,6 +31,8 @@ public:
   Carer(int id, Route* route, Vector2D* velocity);
   // デストラクタ
   ~Carer();
+  // 看護状況を返す
+  int status();
   // 現在の場所を返す
   Vector2D* position();
   // 速度を返す
@@ -44,7 +48,7 @@ public:
   // 目的地に到着したか
   bool isArrived();
   // 介護を行う
-  void care();
+  void pick(Vector2D* next);
 };
 
 #endif

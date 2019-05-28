@@ -20,6 +20,7 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
   _velocity = velocity;
   _acceleration = 0;
   _position = _route->next();
+  _status = 0;
   _desiredSpeed = 1.34;
 
   _route->incrementRouteIndex();
@@ -134,10 +135,7 @@ bool Carer::isArrived()
     return flag;
 }
 
-void Carer::care(){
-  // 視野内の被介護者の座標を取得
-  // 視野内にいるのか判別
-  // イベントフラグが立っているのか判別
-  // trueであれば移動
-  // 介護が終わったらまた巡回に戻る
+void Carer::pick(Vector2D* next){
+  _status = 1;
+  _route->insert(_route->begin()+route->routeIndex(),next);
 }

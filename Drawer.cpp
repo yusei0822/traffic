@@ -49,6 +49,11 @@ void drawWall(){
 void drawCarer(){
   // 色の設定（青色）
   AutoGL_SetColor(0,0,1);
+  for(unsigned int i=0;careRecipients.size();i++){
+    if(careRecipients[i].status() == 1 && carers[0].status() == 0){
+      carers[0].pick(careRecipients[i].position());
+    }
+  }
   vector<Carer> tmpCarers;
   tmpCarers.clear();
   for(unsigned int i=0;i<carers.size();i++){
@@ -83,7 +88,7 @@ void drawCareRecipient(){
     // // 被介護者リストに追加
     tmpCareRecipients.push_back(*cr);
     // 色を定義
-    if(cr->status==0){
+    if(cr->status()==0){
       AutoGL_SetColor(0,1,0);
     } else {
       AutoGL_SetColor(1,0,0);

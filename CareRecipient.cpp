@@ -24,11 +24,15 @@ CareRecipient::CareRecipient(int id, Route* route, Vector2D* velocity){
   _acceleration = 0;
   _position = _route->next();
   _desiredSpeed = 1.34;
-
+  _status = 0;
   _route->incrementRouteIndex();
 }
 
 CareRecipient::~CareRecipient(){
+}
+
+int CareRecipient::status(){
+  return _status;
 }
 
 Vector2D* CareRecipient::position(){
@@ -146,5 +150,5 @@ bool CareRecipient::isArrived()
 }
 
 void CareRecipient::changeStatus(){
-  status = 1;
+  _status = 1;
 }
