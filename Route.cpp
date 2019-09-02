@@ -23,6 +23,10 @@ Vector2D* Route::next(){
    return _route[_routeIndex];
 }
 
+Vector2D* Route::goal(){
+  return _route[_route.size()-1];
+}
+
 int Route::routeIndex(){
    return _routeIndex;
  }

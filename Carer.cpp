@@ -140,6 +140,18 @@ bool Carer::isArrived()
     return flag;
 }
 
+// 最終目的地に到着したかどうかを判定する関数
+bool Carer::finallyArrived(){
+  bool flag = false;
+  Vector2D* vec = sVec(_route->goal(),_position);
+  // 最終目的地から距離が1m以内になると目的地に到達したと判定
+  if(vec->size()<1)
+  {
+      flag = true;
+  };
+  return flag;
+}
+
 void Carer::pick(Vector2D* next){
   _status = 1;
   _route->insertNext(next);
