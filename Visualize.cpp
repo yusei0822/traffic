@@ -156,15 +156,19 @@ void idleEvent()
   }
 
   // 被介護者の作成
-  int iniX = 7;
+  int iniX = 15;
   int iniY = 7;
   int crid = 0;
   vector<pair<int,int > > iniPositions;
   // 被介護者の初期位置を入力
-  iniPositions.push_back(make_pair(iniX,0));
-  iniPositions.push_back(make_pair(0,iniY));
-  iniPositions.push_back(make_pair(-iniX,0));
-  iniPositions.push_back(make_pair(0,-iniY));
+  iniPositions.push_back(make_pair(iniX+7,0));
+  iniPositions.push_back(make_pair(iniX,iniY));
+  iniPositions.push_back(make_pair(iniX-7,0));
+  iniPositions.push_back(make_pair(iniX,-iniY));
+  iniPositions.push_back(make_pair(-iniX-7,0));
+  iniPositions.push_back(make_pair(-iniX,iniY));
+  iniPositions.push_back(make_pair(-iniX+7,0));
+  iniPositions.push_back(make_pair(-iniX,-iniY));
   if((int)(PresentTime*10)/10 == 1.0){
     for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);

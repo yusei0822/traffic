@@ -30,7 +30,8 @@ void drawWall(){
   walls.push_back(Wall(1,0,y,1,30,M_PI/2));
   walls.push_back(Wall(2,x,0,1,30,0));
   walls.push_back(Wall(3,0,-y,1,30,M_PI/2));
-  walls.push_back(Wall(4,0,0,desk_dx,desk_dy,0));
+  walls.push_back(Wall(4,x/2,0,desk_dx,desk_dy,0));
+  walls.push_back(Wall(5,-x/2,0,desk_dx,desk_dy,0));
   // walls.push_back(Wall(4,15,10,1,15,M_PI/2));
   // walls.push_back(Wall(5,15,-10,1,15,M_PI/2));
   for (unsigned int i=0;i<walls.size();i++) {
