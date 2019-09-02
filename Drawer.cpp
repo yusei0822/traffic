@@ -50,8 +50,18 @@ void drawCarer(){
   // 色の設定（青色）
   AutoGL_SetColor(0,0,1);
   for(unsigned int i=0;i < careRecipients.size();i++){
-    if(careRecipients[i].status() == 1 && carers[0].status() == 0){
-      carers[0].pick(careRecipients[i].position());
+    double a = length(careRecipients[i].position(), carers[0].position());
+    double b = length(careRecipients[i].position(), carers[1].position());
+    if(careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() == 0){
+      if(min(a,b)==a){
+        carers[0].pick(careRecipients[i].position());
+      }
+      // } else {
+      //   carers[1].pick(careRecipients[i].position());
+      // }
+    // } else if(careRecipients[i].status() == 1 && carers[0].status() == 1 && carers[1].status() == 0){
+    //   carers[1].pick(careRecipients[i].position());
+    // }
     }
   }
   vector<Carer> tmpCarers;

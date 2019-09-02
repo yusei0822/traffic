@@ -47,7 +47,7 @@ public:
   void decideAcceleration();
   // 目的地に到着したか
   bool isArrived();
-  // 介護を行う
+  // 被介護者の元へ行く
   void pick(Vector2D* next);
 };
 

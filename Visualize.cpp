@@ -7,6 +7,7 @@
 #include <utility>
 #include <math.h>
 #include "Drawer.h"
+#include "Calculation.h"
 #include "Pedestrian.h"
 #include "Carer.h"
 #include "CareRecipient.h"
@@ -111,6 +112,12 @@ void idleEvent()
   if(PresentTime > 4.99 && PresentTime<5.01){
     careRecipients[0].changeStatus();
   }
+  // if(PresentTime > 8.99 && PresentTime<9.01){
+  //   careRecipients[1].changeStatus();
+  // }
+  // if(careRecipients[0].status() == 1 && length(careRecipients[0].position(),carers[0].position())<1.0){
+  //   careRecipients[0].changeStatus();
+  // }
 
   // 介護士を生成
   static int cid = 0;
@@ -163,9 +170,9 @@ void idleEvent()
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
       Route* crRoute = new Route();
       crRoute->addNext(iniPosition);
-      cout << crid << endl;
+      // cout << crid << endl;
       CareRecipient *cr = new CareRecipient(crid, crRoute, v0);
-      cout << "crRoute:" << crRoute << endl;
+      // cout << "crRoute:" << crRoute << endl;
       careRecipients.push_back(*cr);
       crid++;
     }

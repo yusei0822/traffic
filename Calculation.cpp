@@ -2,6 +2,13 @@
 #include "Calculation.h"
 #include "Vector2D.h"
 
+// 2点間の距離を計算する
+double length(Vector2D* v1, Vector2D* v2){
+  double a = v1->x() - v2->x();
+  double b = v1->y() - v2->y();
+  return sqrt(a*a+b*b);
+}
+
 // 線分と点の距離を計算する
 double min_d2(double x0,double y0,double x1,double y1,double x2,double y2)
 {

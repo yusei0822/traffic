@@ -66,16 +66,16 @@ void CareRecipient::decideAcceleration(){
   //===============================================
   // 移動目標に近づく力
   /// 移動目標に向かう単位ベクトル
-    cout << "a" << endl;
-    cout << "route size ："<< _route->routeSize() << endl;
-    cout << "route index : "<< _route->routeIndex() << endl;
-    cout << "route next : "<< _route->next() << endl;
+    // cout << "a" << endl;
+    // cout << "route size ："<< _route->routeSize() << endl;
+    // cout << "route index : "<< _route->routeIndex() << endl;
+    // cout << "route next : "<< _route->next() << endl;
     Vector2D* e_a = uVec(sVec(_route->next(), _position));
-    cout << "sVec:"<< sVec(_route->next(), _position)->x() << endl;
-    cout << "目的地のx座標："<<_route->next()->x()<<endl;
+    // cout << "sVec:"<< sVec(_route->next(), _position)->x() << endl;
+    // cout << "目的地のx座標："<<_route->next()->x()<<endl;
     Vector2D* f1 = mVec(1/0.5, sVec(mVec(_desiredSpeed, e_a), _velocity));
-    cout << "e_a:"<<"x="<<e_a->x()<<",y="<<e_a->y()<<endl;
-    cout<<"f1:"<<"x="<<f1->x()<<",y="<<f1->y()<<endl;
+    // cout << "e_a:"<<"x="<<e_a->x()<<",y="<<e_a->y()<<endl;
+    // cout<<"f1:"<<"x="<<f1->x()<<",y="<<f1->y()<<endl;
   //===============================================
     // 他のエージェントからの斥力
     // 変数の定義>
@@ -101,7 +101,7 @@ void CareRecipient::decideAcceleration(){
     //     double v_ab = v0_ab * exp(-1 * b / s);
     //     f2 = aVec(f2,mVec(-1 * v_ab, r_ab));
     // }
-    cout<<"f2:"<<"x="<<f2->x()<<",y="<<f2->y()<<endl;
+    // cout<<"f2:"<<"x="<<f2->x()<<",y="<<f2->y()<<endl;
   //===============================================){
   // 壁からの斥力
   // 変数の定義
@@ -126,14 +126,14 @@ void CareRecipient::decideAcceleration(){
       // 全ての壁からの力を合計する
       f3 = mVec(-1 * u_ab * r_ab,f3);
   }
-  cout<<"f3:"<<"x="<<f3->x()<<",y="<<f3->y()<<endl;
+  // cout<<"f3:"<<"x="<<f3->x()<<",y="<<f3->y()<<endl;
   //===============================================
   // attractive effects
   // 変数の定義
   // 本モデルでは発生しないので記述しない
   //===============================================
   _acceleration = aVec(aVec(f1,f2),f3);
-  cout << "acceleration:"<<"x = "<<_acceleration->x()<< endl;
+  // cout << "acceleration:"<<"x = "<<_acceleration->x()<< endl;
 }
 
 // 目的地に到達したかどうかを判定する関数
@@ -150,5 +150,9 @@ bool CareRecipient::isArrived()
 }
 
 void CareRecipient::changeStatus(){
+  if (_status == 0 ){
   _status = 1;
+} else {
+  _status = 0;
+}
 }
