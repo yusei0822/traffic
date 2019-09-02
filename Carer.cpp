@@ -60,6 +60,12 @@ void Carer::walk(){
   }
 }
 
+// その場で止まる関数
+void Carer::stop(){
+  _velocity = 0;
+  _acceleration = 0;
+}
+
 // 加速度を決定する関数
 void Carer::decideAcceleration(){
   //===============================================

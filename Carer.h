@@ -43,6 +43,8 @@ public:
   Route* route();
   // 移動する
   void walk();
+  // 止まる
+  void stop();
   // 加速度を決定する
   void decideAcceleration();
   // 目的地に到着したか
