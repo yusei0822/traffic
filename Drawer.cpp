@@ -30,8 +30,13 @@ void drawWall(){
   walls.push_back(Wall(1,0,y,1,30,M_PI/2));
   walls.push_back(Wall(2,x,0,1,30,0));
   walls.push_back(Wall(3,0,-y,1,30,M_PI/2));
+  // 机の記述
   walls.push_back(Wall(4,x/2,0,desk_dx,desk_dy,0));
   walls.push_back(Wall(5,-x/2,0,desk_dx,desk_dy,0));
+  // トイレの記述
+  walls.push_back(Wall(6,x+5,y,1,5,M_PI/2));
+  walls.push_back(Wall(6,x+10,y-5,1,5,0));
+  walls.push_back(Wall(6,x+5,y-10,1,5,M_PI/2));
   // walls.push_back(Wall(4,15,10,1,15,M_PI/2));
   // walls.push_back(Wall(5,15,-10,1,15,M_PI/2));
   for (unsigned int i=0;i<walls.size();i++) {
@@ -50,6 +55,7 @@ void drawWall(){
 void drawCarer(){
   // 色の設定（青色）
   AutoGL_SetColor(0,0,1);
+  // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
   for(unsigned int i=0;i < careRecipients.size();i++){
     double a = length(careRecipients[i].position(), carers[0].position());
     double b = length(careRecipients[i].position(), carers[1].position());
@@ -57,9 +63,6 @@ void drawCarer(){
       if(min(a,b)==a){
         carers[0].pick(careRecipients[i].position());
       }
-      // } else {
-      //   carers[1].pick(careRecipients[i].position());
-      // }
     // } else if(careRecipients[i].status() == 1 && carers[0].status() == 1 && carers[1].status() == 0){
     //   carers[1].pick(careRecipients[i].position());
     // }
@@ -87,7 +90,6 @@ void drawCarer(){
 }
 
 void drawCareRecipient(){
-
   vector<CareRecipient> tmpCareRecipients;
   tmpCareRecipients.clear();
   for(unsigned int i=0;i<careRecipients.size();i++){

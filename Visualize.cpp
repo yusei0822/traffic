@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 #include <math.h>
+#include <time.h>
 #include "Drawer.h"
 #include "Calculation.h"
 #include "Pedestrian.h"
@@ -108,16 +109,27 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
 
-  //ある時刻になったら被介護者の色が変わる
+  //非介護者ごとにrandomにイベントフラグが発生
+  // for(i=0,i<careRecipients.size();i=i+1){
+  //   time_t t;
+  //
+  //   srand((unsigned) time(&t));
+  //
+  //
+  //   careRecipients[i].changeStatus();
+  // }
+
   if(PresentTime > 4.99 && PresentTime<5.01){
     careRecipients[0].changeStatus();
   }
-  // if(PresentTime > 8.99 && PresentTime<9.01){
-  //   careRecipients[1].changeStatus();
-  // }
-  // if(careRecipients[0].status() == 1 && length(careRecipients[0].position(),carers[0].position())<1.0){
-  //   careRecipients[0].changeStatus();
-  // }
+
+  if(PresentTime > 7.99 && PresentTime<8.01){
+    careRecipients[6].changeStatus();
+  }
+
+  if(PresentTime > 10.99 && PresentTime<11.01){
+    careRecipients[3].changeStatus();
+  }
 
   // 介護士を生成
   static int cid = 0;
@@ -126,10 +138,14 @@ void idleEvent()
   if(PresentTime > 0.99 && PresentTime<1.01){
     Route* route1 = new Route();
     vector<pair<double, double > > subGoal;
-    subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(25,-25));
-    subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(25,-25));
+    for(unsigned int i=0;i<10;i=i+1){
+      subGoal.push_back(make_pair(-25,-25));
+      subGoal.push_back(make_pair(25,-25));
+    }
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route1->addNext(vec);
