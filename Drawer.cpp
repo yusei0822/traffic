@@ -35,10 +35,8 @@ void drawWall(){
   walls.push_back(Wall(5,-x/2,0,desk_dx,desk_dy,0));
   // トイレの記述
   walls.push_back(Wall(6,x+5,y,1,5,M_PI/2));
-  walls.push_back(Wall(6,x+10,y-5,1,5,0));
-  walls.push_back(Wall(6,x+5,y-10,1,5,M_PI/2));
-  // walls.push_back(Wall(4,15,10,1,15,M_PI/2));
-  // walls.push_back(Wall(5,15,-10,1,15,M_PI/2));
+  walls.push_back(Wall(7,x+10,y-5,1,5,0));
+  walls.push_back(Wall(8,x+5,y-10,1,5,M_PI/2));
   for (unsigned int i=0;i<walls.size();i++) {
     Wall *w = &walls[i];
      // 壁を構成する4点を回転させる
@@ -57,12 +55,15 @@ void drawCarer(){
   AutoGL_SetColor(0,0,1);
   // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
   for(unsigned int i=0;i < careRecipients.size();i++){
-    double a = length(careRecipients[i].position(), carers[0].position());
-    double b = length(careRecipients[i].position(), carers[1].position());
+    // double a = length(careRecipients[i].position(), carers[0].position());
+    // double b = length(careRecipients[i].position(), carers[1].position());
     if(careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() == 0){
-      if(min(a,b)==a){
+      // if(min(a,b)==a){
+        Vector2D* pickup = careRecipients[i].position();
         carers[0].pick(careRecipients[i].position());
-      }
+        // carers[0].restroom();
+        // carers[0].pick(pickup);
+      // }
     // } else if(careRecipients[i].status() == 1 && carers[0].status() == 1 && carers[1].status() == 0){
     //   carers[1].pick(careRecipients[i].position());
     // }
@@ -76,9 +77,10 @@ void drawCarer(){
     c->decideAcceleration();
     // 加速度を元に動かす
     c->walk();
-    // 最終地点に到達した歩行者を削除する
+    // 最終地点に到達した歩行者を静止させる
     if(c->isArrived() && c->route()->routeSize()-1 == c->route()->routeIndex()){
-      c->stop();
+      // c->stop();
+      tmpCarers.push_back(*c);
     }
     else{
       tmpCarers.push_back(*c);

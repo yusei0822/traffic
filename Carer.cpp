@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// 他のファイルで定義している変数を読み込む
 extern vector<Carer> carers;
 extern vector<CareRecipient> careRecipients;
 extern vector<Wall> walls;
@@ -23,7 +24,6 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
   _position = _route->next();
   _status = 0;
   _desiredSpeed = 1.34;
-
   _route->incrementRouteIndex();
 }
 
@@ -136,14 +136,14 @@ void Carer::decideAcceleration(){
 // 目的地に到達したかどうかを判定する関数
 bool Carer::isArrived()
 {
-    bool flag = false;
-    Vector2D* vec = sVec(_route->next(), _position);
-    // 目的地から1m以内になると目的地に到達したと判定
-    if(vec->size()<1)
-    {
-        flag = true;
-    };
-    return flag;
+  bool flag = false;
+  Vector2D* vec = sVec(_route->next(), _position);
+  // 目的地から1m以内になると目的地に到達したと判定
+  if(vec->size()<1)
+  {
+    flag = true;
+  };
+  return flag;
 }
 
 // 最終目的地に到着したかどうかを判定する関数
@@ -158,7 +158,29 @@ bool Carer::finallyArrived(){
   return flag;
 }
 
+// 指定された被介護者の位置を次の目的地に設定する
 void Carer::pick(Vector2D* next){
   _status = 1;
   _route->insertNext(next);
+}
+
+// restroomを次の目的地に設定する
+void Carer::restroom(){
+  _status = 2;
+  Vector2D* restroom = new Vector2D(25,30);
+  _route->insertNext(restroom);
+}
+
+// 最終目的地に到着したかどうかを判定する関数
+bool Carer::restroomArrived(){
+  bool flag = false;
+  Vector2D* restroom = new Vector2D(25,30);
+  Vector2D* vec = sVec(restroom,_position);
+  // 最終目的地から距離が1m以内になると目的地に到達したと判定
+  if(vec->size()<1)
+  {
+      flag = true;
+  };
+  _status = 0;
+  return flag;
 }

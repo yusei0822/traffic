@@ -1,6 +1,5 @@
 #ifndef __CARER_H__
 #define __CARER_H__
-
 #include <vector>
 
 using namespace std;
@@ -9,7 +8,6 @@ class Vector2D;
 class Route;
 
 class Carer{
-
 protected:
   // ID
   int _cid;
@@ -25,7 +23,6 @@ protected:
   Route* _route;
   // 希望速度の大きさ
   double _desiredSpeed;
-
 public:
   // コンストラクタ
   Carer(int id, Route* route, Vector2D* velocity);
@@ -53,6 +50,10 @@ public:
   bool finallyArrived();
   // 被介護者の元へ行く
   void pick(Vector2D* next);
+  // トイレへ行く
+  void restroom();
+  // トイレに到達したか
+  bool restroomArrived();
 };
 
 #endif

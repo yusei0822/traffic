@@ -109,16 +109,6 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
 
-  //非介護者ごとにrandomにイベントフラグが発生
-  // for(i=0,i<careRecipients.size();i=i+1){
-  //   time_t t;
-  //
-  //   srand((unsigned) time(&t));
-  //
-  //
-  //   careRecipients[i].changeStatus();
-  // }
-
   if(PresentTime > 4.99 && PresentTime<5.01){
     careRecipients[0].changeStatus();
   }
@@ -128,7 +118,7 @@ void idleEvent()
   }
 
   if(PresentTime > 10.99 && PresentTime<11.01){
-    careRecipients[3].changeStatus();
+    careRecipients[8].changeStatus();
   }
 
   // 介護士を生成
@@ -138,14 +128,10 @@ void idleEvent()
   if(PresentTime > 0.99 && PresentTime<1.01){
     Route* route1 = new Route();
     vector<pair<double, double > > subGoal;
-    for(unsigned int i=0;i<10;i=i+1){
-      subGoal.push_back(make_pair(-25,-25));
-      subGoal.push_back(make_pair(25,-25));
-    }
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route1->addNext(vec);
@@ -170,6 +156,7 @@ void idleEvent()
     Carer *c2 = new Carer(cid, route2, v0);
     carers.push_back(*c2);
   }
+
 
   // 被介護者の作成
   int iniX = 15;

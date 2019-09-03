@@ -1,0 +1,48 @@
+0000000000000000000000000000000000000000 ebe9451bee1fc196a19517d87a076cac969ad717 yusei_murayasu <murayasu.yusei@gmail.com> 1537618926 +0900	commit (initial): first commit
+ebe9451bee1fc196a19517d87a076cac969ad717 133c8b0d77328e8744f4520e89a5898d09d6e52b yusei_murayasu <murayasu.yusei@gmail.com> 1537623826 +0900	commit: improving
+133c8b0d77328e8744f4520e89a5898d09d6e52b d76b2c01aaa8277b35c0ac667abadf1236771d81 yusei_murayasu <murayasu.yusei@gmail.com> 1537791993 +0900	pull origin master: Fast-forward
+d76b2c01aaa8277b35c0ac667abadf1236771d81 d5d95174e4eb28b28bf7b6282af94fd0139c3f8f yusei_murayasu <murayasu.yusei@gmail.com> 1543493792 +0900	commit: improving
+d5d95174e4eb28b28bf7b6282af94fd0139c3f8f 98e48e7dbb22ee9134bafb5282a0cc935cd5cb8b yusei_murayasu <murayasu.yusei@gmail.com> 1543657512 +0900	commit: improving
+98e48e7dbb22ee9134bafb5282a0cc935cd5cb8b 98e48e7dbb22ee9134bafb5282a0cc935cd5cb8b yusei_murayasu <murayasu.yusei@gmail.com> 1543657567 +0900	checkout: moving from master to f2
+98e48e7dbb22ee9134bafb5282a0cc935cd5cb8b ce1f50593633c1433e1a501f5d417f11f7802828 yusei_murayasu <murayasu.yusei@gmail.com> 1543673602 +0900	commit: implement f2
+ce1f50593633c1433e1a501f5d417f11f7802828 98e48e7dbb22ee9134bafb5282a0cc935cd5cb8b yusei_murayasu <murayasu.yusei@gmail.com> 1543673913 +0900	checkout: moving from f2 to master
+98e48e7dbb22ee9134bafb5282a0cc935cd5cb8b ce1f50593633c1433e1a501f5d417f11f7802828 yusei_murayasu <murayasu.yusei@gmail.com> 1543673918 +0900	merge f2: Fast-forward
+ce1f50593633c1433e1a501f5d417f11f7802828 ce1f50593633c1433e1a501f5d417f11f7802828 yusei_murayasu <murayasu.yusei@gmail.com> 1543674011 +0900	checkout: moving from master to f2
+ce1f50593633c1433e1a501f5d417f11f7802828 ce1f50593633c1433e1a501f5d417f11f7802828 yusei_murayasu <murayasu.yusei@gmail.com> 1543674108 +0900	checkout: moving from f2 to master
+ce1f50593633c1433e1a501f5d417f11f7802828 ce1f50593633c1433e1a501f5d417f11f7802828 yusei_murayasu <murayasu.yusei@gmail.com> 1543798615 +0900	checkout: moving from master to wall
+ce1f50593633c1433e1a501f5d417f11f7802828 d29e96b02decc1e0abe6d3d0acedc8b698f40e98 yusei_murayasu <murayasu.yusei@gmail.com> 1543798835 +0900	commit: implement wall class
+d29e96b02decc1e0abe6d3d0acedc8b698f40e98 c00ba4b932f67eebba64c48a0fa56ba7c20b3141 yusei_murayasu <murayasu.yusei@gmail.com> 1543819523 +0900	commit: improving
+c00ba4b932f67eebba64c48a0fa56ba7c20b3141 be2a6ac704c0ca9365fdd11cdd0ce053473e6875 yusei_murayasu <murayasu.yusei@gmail.com> 1543842503 +0900	commit: improving wall class & visualise wall
+be2a6ac704c0ca9365fdd11cdd0ce053473e6875 ce1f50593633c1433e1a501f5d417f11f7802828 yusei_murayasu <murayasu.yusei@gmail.com> 1543842591 +0900	checkout: moving from wall to master
+ce1f50593633c1433e1a501f5d417f11f7802828 f154ecbcda134c5de26531cfdd6988fb04c25cc9 yusei_murayasu <murayasu.yusei@gmail.com> 1543842599 +0900	pull origin master: Fast-forward
+f154ecbcda134c5de26531cfdd6988fb04c25cc9 41babdf757cc15b935b3be9a1b5b823418229091 yusei_murayasu <murayasu.yusei@gmail.com> 1543910131 +0900	pull origin master: Fast-forward
+41babdf757cc15b935b3be9a1b5b823418229091 281246d9ae8eeb360560d582a020e8168ab97631 yusei_murayasu <murayasu.yusei@gmail.com> 1543918011 +0900	commit: improving
+281246d9ae8eeb360560d582a020e8168ab97631 3d7811f2d408a8a0bbe657db75767d3824690742 yusei_murayasu <murayasu.yusei@gmail.com> 1543996711 +0900	pull origin route: Fast-forward
+3d7811f2d408a8a0bbe657db75767d3824690742 56e05793aed8c85c80b52f923663374ad67f9eb9 yusei_murayasu <murayasu.yusei@gmail.com> 1543997925 +0900	commit: improving
+56e05793aed8c85c80b52f923663374ad67f9eb9 56e05793aed8c85c80b52f923663374ad67f9eb9 yusei_murayasu <murayasu.yusei@gmail.com> 1544173686 +0900	checkout: moving from master to route
+56e05793aed8c85c80b52f923663374ad67f9eb9 f928c902a815b7dd933fa961b78e1bb6b83e28df yusei_murayasu <murayasu.yusei@gmail.com> 1544176947 +0900	commit: improving
+f928c902a815b7dd933fa961b78e1bb6b83e28df 2f3f72edb9dfa434070511e220d27e4b0c1d6931 yusei_murayasu <murayasu.yusei@gmail.com> 1547643768 +0900	commit: improving
+2f3f72edb9dfa434070511e220d27e4b0c1d6931 56e05793aed8c85c80b52f923663374ad67f9eb9 yusei_murayasu <murayasu.yusei@gmail.com> 1553844131 +0900	checkout: moving from route to master
+56e05793aed8c85c80b52f923663374ad67f9eb9 59fa3615be7892ae13d6c8303587eaa3c2463cc5 yusei_murayasu <murayasu.yusei@gmail.com> 1553844138 +0900	pull origin master: Fast-forward
+59fa3615be7892ae13d6c8303587eaa3c2463cc5 2f3f72edb9dfa434070511e220d27e4b0c1d6931 yusei_murayasu <murayasu.yusei@gmail.com> 1553844148 +0900	checkout: moving from master to route
+2f3f72edb9dfa434070511e220d27e4b0c1d6931 59fa3615be7892ae13d6c8303587eaa3c2463cc5 yusei_murayasu <murayasu.yusei@gmail.com> 1553844189 +0900	checkout: moving from route to master
+59fa3615be7892ae13d6c8303587eaa3c2463cc5 2f3f72edb9dfa434070511e220d27e4b0c1d6931 yusei_murayasu <murayasu.yusei@gmail.com> 1553844202 +0900	checkout: moving from master to route
+2f3f72edb9dfa434070511e220d27e4b0c1d6931 59fa3615be7892ae13d6c8303587eaa3c2463cc5 yusei_murayasu <murayasu.yusei@gmail.com> 1553844204 +0900	checkout: moving from route to master
+59fa3615be7892ae13d6c8303587eaa3c2463cc5 2f3f72edb9dfa434070511e220d27e4b0c1d6931 yusei_murayasu <murayasu.yusei@gmail.com> 1553844207 +0900	checkout: moving from master to route
+2f3f72edb9dfa434070511e220d27e4b0c1d6931 59fa3615be7892ae13d6c8303587eaa3c2463cc5 yusei_murayasu <murayasu.yusei@gmail.com> 1553844213 +0900	checkout: moving from route to master
+59fa3615be7892ae13d6c8303587eaa3c2463cc5 2f3f72edb9dfa434070511e220d27e4b0c1d6931 yusei_murayasu <murayasu.yusei@gmail.com> 1553844215 +0900	checkout: moving from master to route
+2f3f72edb9dfa434070511e220d27e4b0c1d6931 59fa3615be7892ae13d6c8303587eaa3c2463cc5 yusei_murayasu <murayasu.yusei@gmail.com> 1553844285 +0900	checkout: moving from route to master
+59fa3615be7892ae13d6c8303587eaa3c2463cc5 25c8c62a15281d525ee6754a6f69cf8918d8f768 yusei_murayasu <murayasu.yusei@gmail.com> 1553844353 +0900	commit (merge): improving
+25c8c62a15281d525ee6754a6f69cf8918d8f768 b2157af62957d1ae254978055f8a5558a7bf5bd9 yusei_murayasu <murayasu.yusei@gmail.com> 1557737708 +0900	pull origin master: Fast-forward
+b2157af62957d1ae254978055f8a5558a7bf5bd9 46f76a42f6606896676f64cc71ab85a94ef3b32a yusei_murayasu <murayasu.yusei@gmail.com> 1558697213 +0900	commit: improving carer class
+46f76a42f6606896676f64cc71ab85a94ef3b32a 6c766edff835d73fee24415f12190db62f135507 yusei_murayasu <murayasu.yusei@gmail.com> 1558936168 +0900	commit: add central-desk
+6c766edff835d73fee24415f12190db62f135507 f6c440f5c4f5ba17692a90e6bd47cb25f6080e49 yusei_murayasu <murayasu.yusei@gmail.com> 1558939850 +0900	commit: add careRecipient
+f6c440f5c4f5ba17692a90e6bd47cb25f6080e49 abcab44754d6483b8ec3544928d2e360e4fcf82d yusei_murayasu <murayasu.yusei@gmail.com> 1558947692 +0900	pull origin master: Fast-forward
+abcab44754d6483b8ec3544928d2e360e4fcf82d 82063c8c6f43b88e12262182ef1b6ba1f5837d7c yusei_murayasu <murayasu.yusei@gmail.com> 1558964036 +0900	commit: add shouldbecared in careRecipient class
+82063c8c6f43b88e12262182ef1b6ba1f5837d7c 2e7757f6bc338b1ef4879d1bec5c1bbcd7768e7c yusei_murayasu <murayasu.yusei@gmail.com> 1558966775 +0900	commit: add care in carer class
+2e7757f6bc338b1ef4879d1bec5c1bbcd7768e7c e62d00b0af3a8fef18481121b1b078c174850de3 yusei_murayasu <murayasu.yusei@gmail.com> 1559021297 +0900	commit: improving
+e62d00b0af3a8fef18481121b1b078c174850de3 d397e3e19724ef35a871f9a009d2701b1852fbd6 yusei_murayasu <murayasu.yusei@gmail.com> 1559029755 +0900	commit: improving
+d397e3e19724ef35a871f9a009d2701b1852fbd6 8bd096bb3d9353d8d5d018cc0812e3fedde84649 yusei_murayasu <murayasu.yusei@gmail.com> 1559032474 +0900	commit: improving
+8bd096bb3d9353d8d5d018cc0812e3fedde84649 fcd8523758705c257b8ee77836e66963e2a0f9e0 yusei_murayasu <murayasu.yusei@gmail.com> 1559033129 +0900	commit: improving
+fcd8523758705c257b8ee77836e66963e2a0f9e0 ffb5399e76f178f6c7b0385ff9568587d64fc985 yusei_murayasu <murayasu.yusei@gmail.com> 1559046417 +0900	commit: improving
+                                                                                                                                                                         
