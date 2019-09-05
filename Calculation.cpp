@@ -84,3 +84,12 @@ void rotation2D(double * xp, double * yp, double dx, double dy, double xc, doubl
     *xp = dx * cos(theta) - dy * sin(theta) + xc;
     *yp = -1.0 * ( dx * sin(theta) + dy * cos(theta) + yc );
 }
+
+Vector2D* getpPoint(double p, double q,double x1,double y1,double x2,double y2){
+  double a = (y1-y2)/(x1-x2);
+  double b = y1 - a * x1;
+  double x = (a*(q-b)+p)/(pow(a,2.0)+1);
+  double y = a * ((a * (q-b) + p)/(pow(a,2.0)+1)) + b;
+  Vector2D* vec = new Vector2D(x,y);
+  return vec;
+}

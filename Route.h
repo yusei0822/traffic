@@ -23,6 +23,7 @@ public:
   Vector2D* goal();
   // routeIndexをプラスする
   void incrementRouteIndex();
+  // 次の目的地を追加する
   void insertNext(Vector2D* next);
 };
 

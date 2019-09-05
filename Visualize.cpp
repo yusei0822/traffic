@@ -109,7 +109,7 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
 
-  if(PresentTime > 4.99 && PresentTime<5.01){
+  if(PresentTime > 7.99 && PresentTime<8.01){
     careRecipients[0].changeStatus();
   }
 
@@ -118,7 +118,7 @@ void idleEvent()
   }
 
   if(PresentTime > 10.99 && PresentTime<11.01){
-    careRecipients[8].changeStatus();
+    careRecipients[7].changeStatus();
   }
 
   // 介護士を生成
@@ -127,11 +127,17 @@ void idleEvent()
   // 一人目の介護士の作成
   if(PresentTime > 0.99 && PresentTime<1.01){
     Route* route1 = new Route();
+    // 巡回経路作成のための経路の配列を作成
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
     subGoal.push_back(make_pair(25,-25));
     subGoal.push_back(make_pair(-25,-25));
     subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
+    // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route1->addNext(vec);
@@ -145,10 +151,16 @@ void idleEvent()
   if(PresentTime > 0.99 && PresentTime<1.01){
     Route* route2 = new Route();
     vector<pair<double, double > > subGoal;
+    // 巡回経路作成のための経路の配列を作成
     subGoal.push_back(make_pair(25,25));
     subGoal.push_back(make_pair(-25,25));
     subGoal.push_back(make_pair(25,25));
     subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(25,25));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(25,25));
+    subGoal.push_back(make_pair(-25,25));
+    // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
       route2->addNext(vec);
@@ -172,6 +184,7 @@ void idleEvent()
   iniPositions.push_back(make_pair(-iniX,iniY));
   iniPositions.push_back(make_pair(-iniX+7,0));
   iniPositions.push_back(make_pair(-iniX,-iniY));
+  // 被介護者を作成
   if((int)(PresentTime*10)/10 == 1.0){
     for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);

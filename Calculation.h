@@ -26,4 +26,6 @@ Vector2D* uVec(Vector2D* v);
 // 座標を回転させる関数
 void rotation2D(double * xp, double * yp, double x, double y, double xc, double yc, double theta);
 
+Vector2D* getpPoint(double p, double q,double x1,double y1,double x2,double y2);
+
 #endif

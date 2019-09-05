@@ -152,7 +152,7 @@ bool CareRecipient::isArrived()
 void CareRecipient::changeStatus(){
   if (_status == 0 ){
   _status = 1;
-} else {
-  _status = 0;
+} else if(_status == 1) {
+  _status = 2;
 }
 }
