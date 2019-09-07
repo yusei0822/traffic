@@ -152,7 +152,7 @@ bool Carer::isArrived()
   if(vec->size()<1)
   {
     flag = true;
-    cout << "到着しました" << endl;
+    // cout << "到着しました" << endl;
   };
   // cout << "到着しました" << endl;
   return flag;
@@ -172,13 +172,12 @@ bool Carer::finallyArrived(){
 
 // 指定された被介護者の位置を次の目的地に設定する
 void Carer::pick(Vector2D* next){
-  _status = 0;
   _route->insertNext(next);
 }
 
 // restroomを次の目的地に設定する
 void Carer::restroom(){
-  _status = 0;
+  _status = 2;
   Vector2D* restroom = new Vector2D(25,30);
   _route->insertNext(restroom);
 }

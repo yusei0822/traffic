@@ -49,6 +49,8 @@ public:
   bool isArrived();
   // イベントフラグ
   void changeStatus();
+  // トイレに向かう
+  void restroom();
 };
 
 #endif

@@ -151,8 +151,15 @@ bool CareRecipient::isArrived()
 
 void CareRecipient::changeStatus(){
   if (_status == 0 ){
-  _status = 1;
-} else if(_status == 1) {
-  _status = 2;
+    _status = 1;
+  } else if(_status == 1) {
+    _status = 2;
+  } else if(_status == 2){
+    _status = 3;
+  }
 }
+
+void CareRecipient::restroom(){
+  Vector2D* restroom = new Vector2D(25,30);
+  _route->insertNext(restroom);
 }

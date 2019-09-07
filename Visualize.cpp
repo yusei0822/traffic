@@ -130,13 +130,13 @@ void idleEvent()
     // 巡回経路作成のための経路の配列を作成
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(25,-25));
-    subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(25,-25));
-    subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(25,-25));
-    subGoal.push_back(make_pair(-25,-25));
-    subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
     // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -152,14 +152,14 @@ void idleEvent()
     Route* route2 = new Route();
     vector<pair<double, double > > subGoal;
     // 巡回経路作成のための経路の配列を作成
-    subGoal.push_back(make_pair(25,25));
     subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(25,25));
-    subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(25,25));
-    subGoal.push_back(make_pair(-25,25));
-    subGoal.push_back(make_pair(25,25));
-    subGoal.push_back(make_pair(-25,25));
+    // subGoal.push_back(make_pair(-25,25));
+    // subGoal.push_back(make_pair(25,25));
+    // subGoal.push_back(make_pair(-25,25));
+    // subGoal.push_back(make_pair(25,25));
+    // subGoal.push_back(make_pair(-25,25));
+    // subGoal.push_back(make_pair(25,25));
+    // subGoal.push_back(make_pair(-25,25));
     // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
