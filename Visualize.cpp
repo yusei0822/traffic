@@ -111,15 +111,19 @@ void idleEvent()
   cout<<"Time:"<<(int)PresentTime<<endl;
 
   if(PresentTime > 2.99 && PresentTime<3.01){
-    careRecipients[3].changeStatus();
+    careRecipients[0].changeStatus();
   }
 
   if(PresentTime > 7.99 && PresentTime<8.01){
-    careRecipients[6].changeStatus();
+    careRecipients[7].changeStatus();
   }
 
   if(PresentTime > 10.99 && PresentTime<11.01){
-    careRecipients[7].changeStatus();
+    careRecipients[5].changeStatus();
+  }
+
+  if(PresentTime > 5.99 && PresentTime<6.01){
+    careRecipients[2].changeStatus();
   }
 
   // 介護士を生成
@@ -153,14 +157,14 @@ void idleEvent()
     Route* route2 = new Route();
     vector<pair<double, double > > subGoal;
     // 巡回経路作成のための経路の配列を作成
+    subGoal.push_back(make_pair(25,25));
+    subGoal.push_back(make_pair(0,0));
+    subGoal.push_back(make_pair(25,25));
     subGoal.push_back(make_pair(-25,25));
-    // subGoal.push_back(make_pair(-25,25));
-    // subGoal.push_back(make_pair(25,25));
-    // subGoal.push_back(make_pair(-25,25));
-    // subGoal.push_back(make_pair(25,25));
-    // subGoal.push_back(make_pair(-25,25));
-    // subGoal.push_back(make_pair(25,25));
-    // subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(0,0));
+    subGoal.push_back(make_pair(-25,25));
+    subGoal.push_back(make_pair(25,25));
+    subGoal.push_back(make_pair(-25,25));
     // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -172,19 +176,19 @@ void idleEvent()
 
   // 被介護者の作成
   int iniX = 15;
-  int iniY = 7;
+  int iniY = 10;
   int crid = 0;
   int careLevel = 0;
   vector<pair<int,int > > iniPositions;
   vector<int> careLevels;
   // 被介護者の初期位置を入力
-  iniPositions.push_back(make_pair(iniX+7,0));
+  iniPositions.push_back(make_pair(iniX+10,0));
   iniPositions.push_back(make_pair(iniX,iniY));
-  iniPositions.push_back(make_pair(iniX-7,0));
+  iniPositions.push_back(make_pair(iniX-10,0));
   iniPositions.push_back(make_pair(iniX,-iniY));
-  iniPositions.push_back(make_pair(-iniX-7,0));
+  iniPositions.push_back(make_pair(-iniX-10,0));
   iniPositions.push_back(make_pair(-iniX,iniY));
-  iniPositions.push_back(make_pair(-iniX+7,0));
+  iniPositions.push_back(make_pair(-iniX+10,0));
   iniPositions.push_back(make_pair(-iniX,-iniY));
   // 被介護者の要介護レベルを設定
   careLevels.push_back(1);
@@ -196,7 +200,7 @@ void idleEvent()
   careLevels.push_back(3);
   careLevels.push_back(4);
   // 被介護者を作成
-  if((int)(PresentTime*10)/10 == 1.0){
+  if(PresentTime > 0.99 && PresentTime<1.01){
     for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
       Route* crRoute = new Route();
