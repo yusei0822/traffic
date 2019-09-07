@@ -21,6 +21,8 @@ public:
   Vector2D* next();
 // 最終目的地の座標を返す
   Vector2D* goal();
+  //最初の座標を返す
+  Vector2D* iniPosition(); 
   // routeIndexをプラスする
   void incrementRouteIndex();
   // 次の目的地を追加する

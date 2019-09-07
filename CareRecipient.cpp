@@ -23,7 +23,7 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
   _velocity = velocity;
   _acceleration = 0;
   _position = _route->next();
-  _desiredSpeed = 1.34;
+  _desiredSpeed = 2.5;
   _status = 0;
   _careLevel = careLevel;
   _route->incrementRouteIndex();
@@ -44,6 +44,10 @@ Vector2D* CareRecipient::position(){
   return _position;
 }
 
+Vector2D* CareRecipient::iniPosition(){
+  return _route->iniPosition();
+}
+
 Vector2D* CareRecipient::velocity(){
   return _velocity;
 }
@@ -61,9 +65,9 @@ void CareRecipient::walk(){
   //
   // cout<<_position->y()<<endl;
   // 目的地に到着した場合は次の目的地を選択する>
-  // if(isArrived()){
-  //   _route->incrementRouteIndex();
-  // }
+  if(isArrived()){
+    _route->incrementRouteIndex();
+  }
 }
 
 // 加速度を決定する関数
@@ -161,10 +165,16 @@ void CareRecipient::changeStatus(){
     _status = 2;
   } else if(_status == 2){
     _status = 3;
+  } else if (_status == 3){
+    _status = 0;
   }
 }
 
 void CareRecipient::restroom(){
   Vector2D* restroom = new Vector2D(25,30);
   _route->insertNext(restroom);
+}
+
+void CareRecipient::goIniPosition(){
+  _route->insertNext(_route->iniPosition());
 }

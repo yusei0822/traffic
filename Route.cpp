@@ -27,6 +27,10 @@ Vector2D* Route::goal(){
   return _route[_route.size()-1];
 }
 
+Vector2D* Route::iniPosition(){
+  return _route[0];
+}
+
 int Route::routeIndex(){
    return _routeIndex;
  }

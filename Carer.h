@@ -54,6 +54,8 @@ public:
   void restroom();
   // トイレに到達したか
   bool restroomArrived();
+  // 看護状況を変更
+  void changeStatus();
 };
 
 #endif

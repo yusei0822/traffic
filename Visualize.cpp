@@ -110,8 +110,8 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
 
-  if(PresentTime > 7.99 && PresentTime<8.01){
-    careRecipients[0].changeStatus();
+  if(PresentTime > 2.99 && PresentTime<3.01){
+    careRecipients[3].changeStatus();
   }
 
   if(PresentTime > 7.99 && PresentTime<8.01){
@@ -131,13 +131,13 @@ void idleEvent()
     // 巡回経路作成のための経路の配列を作成
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
+    subGoal.push_back(make_pair(-25,-25));
+    subGoal.push_back(make_pair(25,-25));
     // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -169,7 +169,6 @@ void idleEvent()
     Carer *c2 = new Carer(cid, route2, v0);
     carers.push_back(*c2);
   }
-
 
   // 被介護者の作成
   int iniX = 15;

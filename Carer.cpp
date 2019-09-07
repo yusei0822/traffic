@@ -23,7 +23,7 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
   _acceleration = 0;
   _position = _route->next();
   _status = 0;
-  _desiredSpeed = 1.34;
+  _desiredSpeed = 2.5;
   _route->incrementRouteIndex();
 }
 
@@ -172,13 +172,11 @@ bool Carer::finallyArrived(){
 
 // 指定された被介護者の位置を次の目的地に設定する
 void Carer::pick(Vector2D* next){
-  _status = 0;
   _route->insertNext(next);
 }
 
 // restroomを次の目的地に設定する
 void Carer::restroom(){
-  _status = 2;
   Vector2D* restroom = new Vector2D(25,30);
   _route->insertNext(restroom);
 }
@@ -195,4 +193,15 @@ bool Carer::restroomArrived(){
   };
   _status = 0;
   return flag;
+}
+
+void Carer::changeStatus(){
+  if (_status == 0 ){
+    _status = 1;
+  } else if(_status == 1) {
+    _status = 2;
+  } else if(_status == 2){
+    _status = 3;
+  } else if (_status == 3)
+    _status = 0;
 }

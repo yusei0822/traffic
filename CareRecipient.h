@@ -39,6 +39,8 @@ public:
   int careLevel();
   // 現在の場所を返す
   Vector2D* position();
+  // 現在の場所を返す
+  Vector2D* iniPosition();
   // 速度を返す
   Vector2D* velocity();
   // 加速度を返す
@@ -55,6 +57,8 @@ public:
   void changeStatus();
   // トイレに向かう
   void restroom();
+  // 最初の場所に戻る
+  void goIniPosition();
 };
 
 #endif
