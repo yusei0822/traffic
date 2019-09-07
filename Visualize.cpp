@@ -174,7 +174,9 @@ void idleEvent()
   int iniX = 15;
   int iniY = 7;
   int crid = 0;
+  int careLevel = 0;
   vector<pair<int,int > > iniPositions;
+  vector<int> careLevels;
   // 被介護者の初期位置を入力
   iniPositions.push_back(make_pair(iniX+7,0));
   iniPositions.push_back(make_pair(iniX,iniY));
@@ -184,14 +186,24 @@ void idleEvent()
   iniPositions.push_back(make_pair(-iniX,iniY));
   iniPositions.push_back(make_pair(-iniX+7,0));
   iniPositions.push_back(make_pair(-iniX,-iniY));
+  // 被介護者の要介護レベルを設定
+  careLevels.push_back(1);
+  careLevels.push_back(1);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(3);
+  careLevels.push_back(3);
+  careLevels.push_back(3);
+  careLevels.push_back(4);
   // 被介護者を作成
   if((int)(PresentTime*10)/10 == 1.0){
     for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
       Route* crRoute = new Route();
+      careLevel = careLevels[i];
       crRoute->addNext(iniPosition);
       // cout << crid << endl;
-      CareRecipient *cr = new CareRecipient(crid, crRoute, v0);
+      CareRecipient *cr = new CareRecipient(crid, careLevel, crRoute, v0);
       // cout << "crRoute:" << crRoute << endl;
       careRecipients.push_back(*cr);
       crid++;

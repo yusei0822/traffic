@@ -172,6 +172,7 @@ bool Carer::finallyArrived(){
 
 // 指定された被介護者の位置を次の目的地に設定する
 void Carer::pick(Vector2D* next){
+  _status = 0;
   _route->insertNext(next);
 }
 

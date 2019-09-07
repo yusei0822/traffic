@@ -17,7 +17,7 @@ extern vector<Wall> walls;
 extern double TimeStep;
 extern double PresentTime;
 
-CareRecipient::CareRecipient(int id, Route* route, Vector2D* velocity){
+CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity){
   _crid = id;
   _route = route;
   _velocity = velocity;
@@ -25,6 +25,7 @@ CareRecipient::CareRecipient(int id, Route* route, Vector2D* velocity){
   _position = _route->next();
   _desiredSpeed = 1.34;
   _status = 0;
+  _careLevel = careLevel;
   _route->incrementRouteIndex();
 }
 
@@ -33,6 +34,10 @@ CareRecipient::~CareRecipient(){
 
 int CareRecipient::status(){
   return _status;
+}
+
+int CareRecipient::careLevel(){
+  return _careLevel;
 }
 
 Vector2D* CareRecipient::position(){

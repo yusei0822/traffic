@@ -15,6 +15,8 @@ protected:
   int _crid;
   // 内部状態
   int _status;
+  // 要介護度
+  int _careLevel;
   // 速度
   Vector2D* _velocity;
   // 加速度
@@ -28,11 +30,13 @@ protected:
 
 public:
   // コンストラクタ
-  CareRecipient(int id, Route* route, Vector2D* velocity);
+  CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity);
   // デストラクタ
   ~CareRecipient();
   // ステータスを返す
   int status();
+  // 要介護度を返す
+  int careLevel();
   // 現在の場所を返す
   Vector2D* position();
   // 速度を返す
