@@ -1,6 +1,17 @@
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "Calculation.h"
 #include "Vector2D.h"
+
+void InitRand(){
+  srand((unsigned int)time(NULL));
+}
+
+int randomTime(){
+   return rand()%20+1;
+}
 
 // 2点間の距離を計算する
 double length(Vector2D* v1, Vector2D* v2){

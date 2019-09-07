@@ -3,6 +3,12 @@
 
 class Vector2D;
 
+// randを初期化する
+void InitRand();
+
+// 1-50までの乱数を返す関数
+int randomTime();
+
 // 2点間の距離を計算する関数
 double length(Vector2D* v1, Vector2D* v2);
 
