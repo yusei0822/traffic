@@ -19,6 +19,8 @@ protected:
   Vector2D* _acceleration;
   // 現在の位置
   Vector2D* _position;
+  // 介護を開始した場所
+  // Vector2D* _carePosition;
   // 通過経路
   Route* _route;
   // 希望速度の大きさ
@@ -32,6 +34,8 @@ public:
   int status();
   // 現在の場所を返す
   Vector2D* position();
+  // 介護開始場所を返す
+  // Vector2D* carePosition();
   // 速度を返す
   Vector2D* velocity();
   // 加速度を返す
@@ -46,16 +50,18 @@ public:
   void decideAcceleration();
   // 目的地に到着したか
   bool isArrived();
-  // 最終目的地に到達したか
-  bool finallyArrived();
   // 被介護者の元へ行く
   void pick(Vector2D* next);
   // トイレへ行く
-  void restroom();
+  void restroom(Vector2D* CareRecipient);
   // トイレに到達したか
   bool restroomArrived();
   // 看護状況を変更
   void changeStatus();
+  // 介護終了判定
+  // bool care_is_finished();
+  // // 介護を開始した場所を入力する
+  // void enter_care_position(Vector2D* care_position);
 };
 
 #endif

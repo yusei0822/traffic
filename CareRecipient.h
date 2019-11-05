@@ -56,7 +56,7 @@ public:
   // イベントフラグ
   void changeStatus();
   // トイレに向かう
-  void restroom();
+  void restroom(Vector2D* position);
   // 最初の場所に戻る
   void goIniPosition();
 };

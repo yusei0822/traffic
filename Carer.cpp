@@ -22,8 +22,10 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
   _velocity = velocity;
   _acceleration = 0;
   _position = _route->next();
+  // _carePosition = velocity;
   _status = 0;
-  _desiredSpeed = 1.34;
+  // _desiredSpeed = 1.34;
+  _desiredSpeed = 0.5;
   _route->incrementRouteIndex();
 }
 
@@ -37,6 +39,10 @@ int Carer::status(){
 Vector2D* Carer::position(){
   return _position;
 }
+
+// Vector2D* Carer::carePosition(){
+//   return _carePosition;
+// }
 
 Vector2D* Carer::velocity(){
   return _velocity;
@@ -104,8 +110,8 @@ void Carer::decideAcceleration(){
   //===============================================
   // 壁からの斥力
   // 変数の定義
-  double u0_ab = 10;
-  double r = 0.2;
+  // double u0_ab = 10;
+  // double r = 0.2;
   Vector2D* f4 = new Vector2D(0,0);
   // 壁から受ける力を計算
   // for (unsigned int i=0; i<walls.size(); i++)
@@ -144,29 +150,15 @@ void Carer::decideAcceleration(){
 }
 
 // 目的地に到達したかどうかを判定する関数
-bool Carer::isArrived()
-{
+bool Carer::isArrived(){
   bool flag = false;
   Vector2D* vec = sVec(_route->next(), _position);
   // 目的地から1m以内になると目的地に到達したと判定
-  if(vec->size()<1)
-  {
+  if(vec->size()<1){
     flag = true;
     // cout << "到着しました" << endl;
   };
   // cout << "到着しました" << endl;
-  return flag;
-}
-
-// 最終目的地に到着したかどうかを判定する関数
-bool Carer::finallyArrived(){
-  bool flag = false;
-  Vector2D* vec = sVec(_route->goal(),_position);
-  // 最終目的地から距離が1m以内になると目的地に到達したと判定
-  if(vec->size()<1)
-  {
-      flag = true;
-  };
   return flag;
 }
 
@@ -176,9 +168,12 @@ void Carer::pick(Vector2D* next){
 }
 
 // restroomを次の目的地に設定する
-void Carer::restroom(){
+void Carer::restroom(Vector2D* CareRecipient){
   Vector2D* restroom = new Vector2D(25,30);
+  _status = 1;
+  _route->insertNext(CareRecipient);
   _route->insertNext(restroom);
+  _route->insertNext(CareRecipient);
 }
 
 // 最終目的地に到着したかどうかを判定する関数
@@ -187,11 +182,9 @@ bool Carer::restroomArrived(){
   Vector2D* restroom = new Vector2D(25,30);
   Vector2D* vec = sVec(restroom,_position);
   // 最終目的地から距離が1m以内になると目的地に到達したと判定
-  if(vec->size()<1)
-  {
+  if(vec->size()<1){
       flag = true;
   };
-  _status = 0;
   return flag;
 }
 
@@ -200,8 +193,20 @@ void Carer::changeStatus(){
     _status = 1;
   } else if(_status == 1) {
     _status = 2;
-  } else if(_status == 2){
-    _status = 3;
-  } else if (_status == 3)
+  } else if (_status == 2){
     _status = 0;
+  }
 }
+
+// bool Carer::care_is_finished(){
+//   bool flag = false;
+//   Vector2D* vec = sVec(_care_position,_position);
+//   if (vec->size()<1){
+//     flag = true;
+//   };
+//   return flag;
+// }
+//
+// void Carer::enter_care_position(Vector2D* care_position){
+//   _care_position = care_position;
+// }

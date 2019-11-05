@@ -23,7 +23,8 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
   _velocity = velocity;
   _acceleration = 0;
   _position = _route->next();
-  _desiredSpeed = 1.34;
+  // _desiredSpeed = 1.34;
+  _desiredSpeed = 0.5;
   _status = 0;
   _careLevel = careLevel;
   _route->incrementRouteIndex();
@@ -152,18 +153,17 @@ bool CareRecipient::isArrived()
 void CareRecipient::changeStatus(){
   if (_status == 0 ){
     _status = 1;
-  } else if(_status == 1) {
+  } else if(_status == 1){
     _status = 2;
-  } else if(_status == 2){
-    _status = 3;
-  } else if (_status == 3){
+  } else if (_status == 2){
     _status = 0;
   }
 }
 
-void CareRecipient::restroom(){
+void CareRecipient::restroom(Vector2D* position){
   Vector2D* restroom = new Vector2D(25,30);
   _route->insertNext(restroom);
+  _route->insertNext(position);
 }
 
 void CareRecipient::goIniPosition(){
