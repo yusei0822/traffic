@@ -58,6 +58,7 @@ void drawCarer(){
   for(unsigned int i=0;i < careRecipients.size();i++){
     Vector2D* restroom = new Vector2D(25,30);
     Vector2D* iniPosition = careRecipients[i].position();
+    // cout << iniPosition->x() <<endl;
 
     // 誰かがイベントフラグを立てた時に、近いほうが介護に向かう
     if(careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() == 0){
@@ -65,62 +66,78 @@ void drawCarer(){
       double b = length(careRecipients[i].position(), carers[1].position());
       if (min(a,b)==a){
         Vector2D* pickup = careRecipients[i].position();
+        carers[0].changeStatus();
         carers[0].restroom(pickup);
-        // carers[0].enter_care_position(pickup);
+        careRecipients[i].changeStatus();
+        carers[0].enter_care_position(pickup);
         // cout << carers[0].status() <<endl;
-      } else if (min(a,b)==b){
+      } else {
         Vector2D* pickup = careRecipients[i].position();
+        carers[1].changeStatus();
         carers[1].restroom(pickup);
-        // carers[1].enter_care_position(pickup);
+        careRecipients[i].changeStatus();
+        carers[1].enter_care_position(pickup);
         // cout << carers[0].status() <<endl;
       }
     } else if (careRecipients[i].status() == 1 && carers[0].status() != 0 && carers[1].status() == 0) {
       Vector2D* pickup = careRecipients[i].position();
+      carers[1].changeStatus();
       carers[1].restroom(pickup);
-      // carers[1].enter_care_position(pickup);
+      careRecipients[i].changeStatus();
+      carers[1].enter_care_position(pickup);
     } else if (careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() != 0) {
       Vector2D* pickup = careRecipients[i].position();
+      carers[0].changeStatus();
       carers[0].restroom(pickup);
-      // carers[0].enter_care_position(pickup);
+      careRecipients[i].changeStatus();
+      carers[0].enter_care_position(pickup);
     }
 
     // 被介護者のもとに到着したら、被介護者のステータスを変更し、トイレに連れて行く
-    if (careRecipients[i].status() == 1 && carers[0].status() == 1){
+    if (careRecipients[i].status() == 2 && carers[0].status() == 1){
       double a = length(careRecipients[i].position(), carers[0].position());
-      if (a < 0.1){
-        // cout << carers[0].status() << endl;
-        // cout << carers[0].status() << endl;
+      if (a < 2.0){
+        // cout << "status = " << carers[0].status() << endl;
         careRecipients[i].restroom(careRecipients[i].position());
+        cout << "carers[0] : 被介護者のもとに到着しました" << endl;
+        carers[0].changeStatus();
+        // cout << carers[0].status() << endl;
       }
-    } else if (careRecipients[i].status() == 1 && carers[1].status() == 1){
+    } else if (careRecipients[i].status() == 2 && carers[1].status() == 1){
       double b = length(careRecipients[i].position(), carers[1].position());
-      if (b < 0.1){
+      if (b < 2.0){
         // cout << carers[1].status() << endl;
         careRecipients[i].restroom(careRecipients[i].position());
+        carers[1].changeStatus();
+        cout << "carers[1] : 被介護者のもとに到着しました" << endl;
       }
     }
 
     //トイレに到着したら、しばらくトイレのところで静止して、その後元の場所に戻る
     double c = length(careRecipients[i].position(),restroom);
-    if (careRecipients[i].status() == 1 && carers[0].status() == 1 && carers[0].restroomArrived()){
-    } else if(careRecipients[i].status() == 2 && carers[1].status() == 2 && c < 1.5){
+    if (careRecipients[i].status() == 2 && carers[0].status() == 2 && carers[0].restroomArrived()){
+      carers[0].changeStatus();
+      cout << "carers[0] : トイレに到着しました" << endl;
+      careRecipients[i].changeStatus();
+    } else if(careRecipients[i].status() == 2 && carers[1].status() == 2 && carers[1].restroomArrived()){
+      carers[1].changeStatus();
+      careRecipients[i].changeStatus();
     }
 
-    // // 元の場所に戻ったらステータスを変更する
-    // if (careRecipients[i].status() == 2 && carers[0].status() == 2){
-    //   if (carers[0].care_is_finished()) {
-    //     carers[0].changeStatus();
-    //     cout << carers[0].status() << endl;
-    //     careRecipients[i].changeStatus();
-    //   }
-    // } else if(careRecipients[i].status() == 2 && carers[1].status() == 2 ){
-    //   // double d = length(careRecipients[i].position(), iniPosition);
-    //   if (carers[1].care_is_finished()) {
-    //     carers[1].changeStatus();
-    //     // cout << carers[0].status() << endl;
-    //     careRecipients[i].changeStatus();
-    //   }
-    // }
+    // 元の場所に戻ったらステータスを変更する
+    if (careRecipients[i].status() == 3 && carers[0].status() == 3){
+      if (carers[0].care_is_finished()) {
+        carers[0].changeStatus();
+        cout << "carer[0] : 介護終了しました"<< endl;
+        careRecipients[i].changeStatus();
+      }
+    } else if(careRecipients[i].status() == 3 && carers[1].status() == 3 ){
+      if (carers[1].care_is_finished()) {
+        carers[1].changeStatus();
+        cout << carers[1].status() << endl;
+        careRecipients[i].changeStatus();
+      }
+    }
 
   }
   vector<Carer> tmpCarers;

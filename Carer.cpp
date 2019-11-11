@@ -40,9 +40,9 @@ Vector2D* Carer::position(){
   return _position;
 }
 
-// Vector2D* Carer::carePosition(){
-//   return _carePosition;
-// }
+Vector2D* Carer::carePosition(){
+  return _carePosition;
+}
 
 Vector2D* Carer::velocity(){
   return _velocity;
@@ -170,7 +170,6 @@ void Carer::pick(Vector2D* next){
 // restroomを次の目的地に設定する
 void Carer::restroom(Vector2D* CareRecipient){
   Vector2D* restroom = new Vector2D(25,30);
-  _status = 1;
   _route->insertNext(CareRecipient);
   _route->insertNext(restroom);
   _route->insertNext(CareRecipient);
@@ -194,19 +193,21 @@ void Carer::changeStatus(){
   } else if(_status == 1) {
     _status = 2;
   } else if (_status == 2){
+    _status = 3;
+  } else {
     _status = 0;
   }
 }
-
-// bool Carer::care_is_finished(){
-//   bool flag = false;
-//   Vector2D* vec = sVec(_care_position,_position);
-//   if (vec->size()<1){
-//     flag = true;
-//   };
-//   return flag;
-// }
 //
-// void Carer::enter_care_position(Vector2D* care_position){
-//   _care_position = care_position;
-// }
+bool Carer::care_is_finished(){
+  bool flag = false;
+  Vector2D* vec = sVec(_carePosition,_position);
+  if (vec->size()<1){
+    flag = true;
+  };
+  return flag;
+}
+
+void Carer::enter_care_position(Vector2D* carePosition){
+  _carePosition = carePosition;
+}

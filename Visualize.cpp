@@ -110,20 +110,20 @@ void idleEvent()
   if((int)(PresentTime*10)%10 == 0)
   cout<<"Time:"<<(int)PresentTime<<endl;
 
-  if(PresentTime > 2.99 && PresentTime<3.01){
-    careRecipients[0].changeStatus();
+  if(PresentTime > 4.99 && PresentTime<5.01){
+    careRecipients[3].changeStatus();
   }
 
   if(PresentTime > 7.99 && PresentTime<8.01){
+    careRecipients[4].changeStatus();
+  }
+
+  if(PresentTime > 18.99 && PresentTime<19.01){
+    careRecipients[1].changeStatus();
+  }
+
+  if(PresentTime > 2.99 && PresentTime<3.01){
     careRecipients[7].changeStatus();
-  }
-
-  if(PresentTime > 10.99 && PresentTime<11.01){
-    careRecipients[5].changeStatus();
-  }
-
-  if(PresentTime > 5.99 && PresentTime<6.01){
-    careRecipients[2].changeStatus();
   }
 
   // 介護士を生成

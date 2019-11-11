@@ -156,6 +156,8 @@ void CareRecipient::changeStatus(){
   } else if(_status == 1){
     _status = 2;
   } else if (_status == 2){
+    _status = 3;
+  } else {
     _status = 0;
   }
 }
