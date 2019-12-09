@@ -2,7 +2,7 @@
 #include <autogl.h>
 #include "Visualize.h"
 
-double PresentTime = 0;
+double PresentTime = 0.0;
 double TimeStep = 0.1; //[s]
 
 //メイン関数

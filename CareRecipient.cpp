@@ -31,6 +31,9 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
   _careLevel = careLevel;
   _toiletCapacity = r;
   _route->incrementRouteIndex();
+  _numberOfSuccess = 0;
+  _numberOfGoingToToilet = 0;
+  _numberOfEndureSeconds = 0;
 }
 
 CareRecipient::~CareRecipient(){
@@ -176,7 +179,13 @@ void CareRecipient::restroom(Vector2D* position){
 }
 
 void CareRecipient::urinate(){
+  // 適切な尿量であれば成功とカウント
+  if (_toiletCapacity > 100 && _toiletCapacity <150){
+    _numberOfSuccess += 1;
+  }
   _toiletCapacity -= 125;
+  _numberOfGoingToToilet += 1;
+  // 膀胱量がマイナスにならないように調整
   if (_toiletCapacity <= 0.0) {
     _toiletCapacity = 0.0;
   }
@@ -198,4 +207,29 @@ void CareRecipient::urinaryIntention(){
 
 void CareRecipient::goIniPosition(){
   _route->insertNext(_route->iniPosition());
+}
+
+// トイレに行った回数を返す
+int CareRecipient::numberOfGoingToToilet(){
+  return _numberOfGoingToToilet;
+}
+// 成功した回数を返す
+int CareRecipient::numberOfSuccess(){
+  return _numberOfSuccess;
+}
+// トイレを我慢した秒数を返す
+double CareRecipient::numberOfEndureSeconds(){
+  return _numberOfEndureSeconds;
+}
+
+// トイレを我慢している時間を加算
+void CareRecipient::addEnduringSeconds(){
+  _numberOfEndureSeconds += 0.1;
+}
+
+// 回数を初期化
+void CareRecipient::initializeNumber(){
+  _numberOfSuccess = 0;
+  _numberOfEndureSeconds = 0;
+  _numberOfGoingToToilet =0;
 }

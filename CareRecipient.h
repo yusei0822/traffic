@@ -25,6 +25,12 @@ protected:
   Vector2D* _position;
   // 通過経路
   Route* _route;
+  // トイレに行った回数
+  int _numberOfGoingToToilet;
+  // 成功した回数
+  int _numberOfSuccess;
+  // トイレを我慢した秒数
+  double _numberOfEndureSeconds;
   // 希望速度の大きさ
   double _desiredSpeed;
   // 膀胱のキャパシティ
@@ -61,7 +67,7 @@ public:
   void changeStatus();
   // トイレに向かう
   void restroom(Vector2D* position);
-  // 膀胱地を加算
+  // 膀胱値を加算
   void urinaryIntention();
   // トイレに行きたいと意思表示する
   void toiletIndicate();
@@ -69,6 +75,16 @@ public:
   void urinate();
   // 最初の場所に戻る
   void goIniPosition();
+  // トイレに行った回数を返す
+  int numberOfGoingToToilet();
+  // 成功した回数を返す
+  int numberOfSuccess();
+  // トイレを我慢した秒数を返す
+  double numberOfEndureSeconds();
+  // トイレを我慢している秒数を加算
+  void addEnduringSeconds();
+  // 回数を初期化する
+  void initializeNumber();
 };
 
 #endif

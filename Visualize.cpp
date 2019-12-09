@@ -106,12 +106,43 @@ void animateButtonCallback(void)
 void idleEvent()
 {
   PresentTime += TimeStep;
-  // コンソール上で見やすいように時間を表示
-  if((int)(PresentTime*10)%10 == 0){
-    cout<<"Time:"<<(int)PresentTime<<endl;
-    // 毎秒ごとに被介護者の膀胱の値を加算
-    for(unsigned i=0;i < careRecipients.size();i++){
+
+  // // コンソール上で見やすいように時間を表示
+  // if((int)(PresentTime*10)%10 == 0){
+  //   cout<<"Time:"<<(int)PresentTime<<endl;
+  // }
+
+// 10分ごとに結果を出力する
+  if((int)(PresentTime*10)%6000 == 0){
+    int success = 0;
+    int totalNumber = 0;
+    double totalSeconds = 0;
+    for(unsigned int i = 0;i<careRecipients.size();i++){
+      success += careRecipients[i].numberOfSuccess();
+      totalNumber += careRecipients[i].numberOfGoingToToilet();
+      totalSeconds += careRecipients[i].numberOfEndureSeconds();
+    }
+    cout << "今回の結果は" << totalNumber << "回中" <<  success << "回介護に成功し、延べ我慢時間は" << totalSeconds << "秒でした。" << endl;
+  }
+
+// 結果の出力ごとに値を初期化する
+  if((int)(PresentTime*10)%6000 == 1){
+    for(unsigned int i = 0;i<careRecipients.size();i++){
+      careRecipients[i].initializeNumber();
+    }
+  }
+
+  // 毎秒ごとに被介護者の膀胱の値を加算
+  for(unsigned i=0;i < careRecipients.size();i++){
+    // 実際には72秒で1追加する
+    if((int)(PresentTime*10)%720 == 0){
       careRecipients[i].urinaryIntention();
+    }
+  }
+  // トイレを我慢している人がいればその人が我慢している秒数を加算
+  for(unsigned int i = 0;i<careRecipients.size();i++){
+    if(careRecipients[i].toiletCapacity()>100.0){
+      careRecipients[i].addEnduringSeconds();
     }
   }
 
@@ -190,12 +221,12 @@ void idleEvent()
   // iniPositions.push_back(make_pair(-iniX,-iniY-d));
   // 被介護者の要介護レベルを設定
   careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
   careLevels.push_back(1);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
   careLevels.push_back(1);
   // careLevels.push_back(1);
   // careLevels.push_back(1);
@@ -323,7 +354,7 @@ void idleEvent()
 
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
-  usleep(1000000 * TimeStep);
+  // usleep(1000000 * TimeStep);
 }
 
 void quitButtonCallback()
