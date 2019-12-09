@@ -181,7 +181,7 @@ bool Carer::restroomArrived(){
   Vector2D* restroom = new Vector2D(25,30);
   Vector2D* vec = sVec(restroom,_position);
   // 最終目的地から距離が1m以内になると目的地に到達したと判定
-  if(vec->size()<1){
+  if(vec->size()<5){
       flag = true;
   };
   return flag;
@@ -194,7 +194,7 @@ void Carer::changeStatus(){
     _status = 2;
   } else if (_status == 2){
     _status = 3;
-  } else {
+  } else if (_status == 3){
     _status = 0;
   }
 }
@@ -202,7 +202,7 @@ void Carer::changeStatus(){
 bool Carer::care_is_finished(){
   bool flag = false;
   Vector2D* vec = sVec(_carePosition,_position);
-  if (vec->size()<1){
+  if (vec->size()<3){
     flag = true;
   };
   return flag;

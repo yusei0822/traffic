@@ -53,93 +53,6 @@ void drawWall(){
 void drawCarer(){
   // 色の設定（青色）
   AutoGL_SetColor(0,0,1);
-
-  // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
-  for(unsigned int i=0;i < careRecipients.size();i++){
-    Vector2D* restroom = new Vector2D(25,30);
-    Vector2D* iniPosition = careRecipients[i].position();
-    // cout << iniPosition->x() <<endl;
-
-    // 誰かがイベントフラグを立てた時に、近いほうが介護に向かう
-    if(careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() == 0){
-      double a = length(careRecipients[i].position(), carers[0].position());
-      double b = length(careRecipients[i].position(), carers[1].position());
-      if (min(a,b)==a){
-        Vector2D* pickup = careRecipients[i].position();
-        carers[0].changeStatus();
-        carers[0].restroom(pickup);
-        careRecipients[i].changeStatus();
-        carers[0].enter_care_position(pickup);
-        // cout << carers[0].status() <<endl;
-      } else {
-        Vector2D* pickup = careRecipients[i].position();
-        carers[1].changeStatus();
-        carers[1].restroom(pickup);
-        careRecipients[i].changeStatus();
-        carers[1].enter_care_position(pickup);
-        // cout << carers[0].status() <<endl;
-      }
-    } else if (careRecipients[i].status() == 1 && carers[0].status() != 0 && carers[1].status() == 0) {
-      Vector2D* pickup = careRecipients[i].position();
-      carers[1].changeStatus();
-      carers[1].restroom(pickup);
-      careRecipients[i].changeStatus();
-      carers[1].enter_care_position(pickup);
-    } else if (careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() != 0) {
-      Vector2D* pickup = careRecipients[i].position();
-      carers[0].changeStatus();
-      carers[0].restroom(pickup);
-      careRecipients[i].changeStatus();
-      carers[0].enter_care_position(pickup);
-    }
-
-    // 被介護者のもとに到着したら、被介護者のステータスを変更し、トイレに連れて行く
-    if (careRecipients[i].status() == 2 && carers[0].status() == 1){
-      double a = length(careRecipients[i].position(), carers[0].position());
-      if (a < 2.0){
-        // cout << "status = " << carers[0].status() << endl;
-        careRecipients[i].restroom(careRecipients[i].position());
-        cout << "carers[0] : 被介護者のもとに到着しました" << endl;
-        carers[0].changeStatus();
-        // cout << carers[0].status() << endl;
-      }
-    } else if (careRecipients[i].status() == 2 && carers[1].status() == 1){
-      double b = length(careRecipients[i].position(), carers[1].position());
-      if (b < 2.0){
-        // cout << carers[1].status() << endl;
-        careRecipients[i].restroom(careRecipients[i].position());
-        carers[1].changeStatus();
-        cout << "carers[1] : 被介護者のもとに到着しました" << endl;
-      }
-    }
-
-    //トイレに到着したら、しばらくトイレのところで静止して、その後元の場所に戻る
-    double c = length(careRecipients[i].position(),restroom);
-    if (careRecipients[i].status() == 2 && carers[0].status() == 2 && carers[0].restroomArrived()){
-      carers[0].changeStatus();
-      cout << "carers[0] : トイレに到着しました" << endl;
-      careRecipients[i].changeStatus();
-    } else if(careRecipients[i].status() == 2 && carers[1].status() == 2 && carers[1].restroomArrived()){
-      carers[1].changeStatus();
-      careRecipients[i].changeStatus();
-    }
-
-    // 元の場所に戻ったらステータスを変更する
-    if (careRecipients[i].status() == 3 && carers[0].status() == 3){
-      if (carers[0].care_is_finished()) {
-        carers[0].changeStatus();
-        cout << "carer[0] : 介護終了しました"<< endl;
-        careRecipients[i].changeStatus();
-      }
-    } else if(careRecipients[i].status() == 3 && carers[1].status() == 3 ){
-      if (carers[1].care_is_finished()) {
-        carers[1].changeStatus();
-        cout << carers[1].status() << endl;
-        careRecipients[i].changeStatus();
-      }
-    }
-
-  }
   vector<Carer> tmpCarers;
   tmpCarers.clear();
   for(unsigned int i=0;i<carers.size();i++){
@@ -171,13 +84,6 @@ void drawCareRecipient(){
     cr->decideAcceleration();
     // // 加速度を元に動かす
     cr->walk();
-    // 介護者が近くに来たら介護済みとする
-    // for(unsigned int j=0;j<carers.size();j++){
-    //   double a = length(carers[j].position(),cr->position());
-    //   if(a < 0.5 && cr->status()==1){
-    //     cr->changeStatus();
-    //   }
-    // }
     // // 被介護者リストに追加
     tmpCareRecipients.push_back(*cr);
     // 色を定義
@@ -189,7 +95,12 @@ void drawCareRecipient(){
       AutoGL_SetColor(1,0,0);
     }
     // 被介護者の形を定義
-    AutoGL_DrawCircle3D(cr->position()->x(),cr->position()->y(),1,0,0,1,0.5,5);
+    if(cr->careLevel()==0){
+      AutoGL_DrawCircle3D(cr->position()->x(),cr->position()->y(),1,0,0,1,0.5,5);
+    } else {
+      AutoGL_DrawTriangle(cr->position()->x(),cr->position()->y(),0,cr->position()->x()+2,cr->position()->y()-1,0,cr->position()->x(),cr->position()->y()-2,0);
+      // AutoGL_DrawCircle3D(cr->position()->x(),cr->position()->y(),1,0,0,1,0.5,5);
+    }
   }
   careRecipients = tmpCareRecipients;
 }

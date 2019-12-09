@@ -15,7 +15,7 @@ protected:
   int _crid;
   // 内部状態
   int _status;
-  // 要介護度
+  // 認知能力
   int _careLevel;
   // 速度
   Vector2D* _velocity;
@@ -27,10 +27,12 @@ protected:
   Route* _route;
   // 希望速度の大きさ
   double _desiredSpeed;
+  // 膀胱のキャパシティ
+  double _toiletCapacity;
 
 public:
   // コンストラクタ
-  CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity);
+  CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity, double r);
   // デストラクタ
   ~CareRecipient();
   // ステータスを返す
@@ -47,6 +49,8 @@ public:
   Vector2D* acceleration();
   // 通過経路を返す
   Route* route();
+  // 膀胱のキャパシティを返す
+  double toiletCapacity();
   // 移動する
   void walk();
   // 加速度を決定する
@@ -57,6 +61,12 @@ public:
   void changeStatus();
   // トイレに向かう
   void restroom(Vector2D* position);
+  // 膀胱地を加算
+  void urinaryIntention();
+  // トイレに行きたいと意思表示する
+  void toiletIndicate();
+  // 放尿する
+  void urinate();
   // 最初の場所に戻る
   void goIniPosition();
 };

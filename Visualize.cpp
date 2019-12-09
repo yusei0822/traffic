@@ -107,23 +107,12 @@ void idleEvent()
 {
   PresentTime += TimeStep;
   // コンソール上で見やすいように時間を表示
-  if((int)(PresentTime*10)%10 == 0)
-  cout<<"Time:"<<(int)PresentTime<<endl;
-
-  if(PresentTime > 4.99 && PresentTime<5.01){
-    careRecipients[3].changeStatus();
-  }
-
-  if(PresentTime > 7.99 && PresentTime<8.01){
-    careRecipients[4].changeStatus();
-  }
-
-  if(PresentTime > 18.99 && PresentTime<19.01){
-    careRecipients[1].changeStatus();
-  }
-
-  if(PresentTime > 2.99 && PresentTime<3.01){
-    careRecipients[7].changeStatus();
+  if((int)(PresentTime*10)%10 == 0){
+    cout<<"Time:"<<(int)PresentTime<<endl;
+    // 毎秒ごとに被介護者の膀胱の値を加算
+    for(unsigned i=0;i < careRecipients.size();i++){
+      careRecipients[i].urinaryIntention();
+    }
   }
 
   // 介護士を生成
@@ -178,28 +167,46 @@ void idleEvent()
   int iniX = 15;
   int iniY = 10;
   int crid = 0;
+  int d =0;
   int careLevel = 0;
   vector<pair<int,int > > iniPositions;
   vector<int> careLevels;
   // 被介護者の初期位置を入力
-  iniPositions.push_back(make_pair(iniX+10,0));
-  iniPositions.push_back(make_pair(iniX,iniY));
-  iniPositions.push_back(make_pair(iniX-10,0));
-  iniPositions.push_back(make_pair(iniX,-iniY));
-  iniPositions.push_back(make_pair(-iniX-10,0));
-  iniPositions.push_back(make_pair(-iniX,iniY));
-  iniPositions.push_back(make_pair(-iniX+10,0));
-  iniPositions.push_back(make_pair(-iniX,-iniY));
+  iniPositions.push_back(make_pair(iniX+10,d));
+  iniPositions.push_back(make_pair(iniX,iniY+d));
+  iniPositions.push_back(make_pair(iniX-10,d));
+  iniPositions.push_back(make_pair(iniX,-iniY+d));
+  iniPositions.push_back(make_pair(-iniX-10,d));
+  iniPositions.push_back(make_pair(-iniX,iniY+d));
+  iniPositions.push_back(make_pair(-iniX+10,d));
+  iniPositions.push_back(make_pair(-iniX,-iniY+d));
+  // iniPositions.push_back(make_pair(iniX+10,-d));
+  // iniPositions.push_back(make_pair(iniX,iniY-d));
+  // iniPositions.push_back(make_pair(iniX-10,-d));
+  // iniPositions.push_back(make_pair(iniX,-iniY-d));
+  // iniPositions.push_back(make_pair(-iniX-10,-d));
+  // iniPositions.push_back(make_pair(-iniX,iniY-d));
+  // iniPositions.push_back(make_pair(-iniX+10,-d));
+  // iniPositions.push_back(make_pair(-iniX,-iniY-d));
   // 被介護者の要介護レベルを設定
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
   careLevels.push_back(1);
   careLevels.push_back(1);
-  careLevels.push_back(2);
-  careLevels.push_back(2);
-  careLevels.push_back(3);
-  careLevels.push_back(3);
-  careLevels.push_back(3);
-  careLevels.push_back(4);
+  // careLevels.push_back(1);
+  // careLevels.push_back(1);
+  // careLevels.push_back(2);
+  // careLevels.push_back(2);
+  // careLevels.push_back(3);
+  // careLevels.push_back(3);
+  // careLevels.push_back(3);
+  // careLevels.push_back(4);
   // 被介護者を作成
+  srand(time(NULL));
   if(PresentTime > 0.99 && PresentTime<1.01){
     for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
@@ -207,12 +214,113 @@ void idleEvent()
       careLevel = careLevels[i];
       crRoute->addNext(iniPosition);
       // cout << crid << endl;
-      CareRecipient *cr = new CareRecipient(crid, careLevel, crRoute, v0);
+      int r = rand()%80 + 1;
+      cout << "初期値は" << r << "です" << endl;
+      CareRecipient *cr = new CareRecipient(crid, careLevel, crRoute, v0, r);
       // cout << "crRoute:" << crRoute << endl;
       careRecipients.push_back(*cr);
       crid++;
     }
   }
+
+  // 毎秒ごとにトイレに行きたいかどうかを判定
+  for(unsigned i=0;i < careRecipients.size();i++){
+    careRecipients[i].toiletIndicate();
+  }
+
+  // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
+  for(unsigned int i=0;i < careRecipients.size();i++){
+    Vector2D* restroom = new Vector2D(25,100);
+    Vector2D* iniPosition = careRecipients[i].position();
+    // cout << iniPosition->x() <<endl;
+    // 誰かがイベントフラグを立てた時に、近いほうが介護に向かう
+    if(careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() == 0){
+      double a = length(careRecipients[i].position(), carers[0].position());
+      double b = length(careRecipients[i].position(), carers[1].position());
+      if (min(a,b)==a){
+        Vector2D* pickup = careRecipients[i].position();
+        carers[0].changeStatus();
+        carers[0].restroom(pickup);
+        careRecipients[i].changeStatus();
+        cout << "carers[0] : これから介護に向かいます" << endl;
+        carers[0].enter_care_position(pickup);
+        // cout << carers[0].status() <<endl;
+      } else if (min(a,b)==b) {
+        Vector2D* pickup = careRecipients[i].position();
+        carers[1].changeStatus();
+        carers[1].restroom(pickup);
+        careRecipients[i].changeStatus();
+        cout << "carers[1] : これから介護に向かいます" << endl;
+        carers[1].enter_care_position(pickup);
+        // cout << carers[0].status() <<endl;
+      }
+    } else if (careRecipients[i].status() == 1 && carers[0].status() != 0 && carers[1].status() == 0) {
+      Vector2D* pickup = careRecipients[i].position();
+      carers[1].changeStatus();
+      carers[1].restroom(pickup);
+      careRecipients[i].changeStatus();
+      cout << "carers[1] : これから代わりに介護に向かいます" << endl;
+      cout << "carers[1]のステータスは" << carers[1].status() << "です" << endl;
+      carers[1].enter_care_position(pickup);
+    } else if (careRecipients[i].status() == 1 && carers[0].status() == 0 && carers[1].status() != 0) {
+      Vector2D* pickup = careRecipients[i].position();
+      carers[0].changeStatus();
+      carers[0].restroom(pickup);
+      careRecipients[i].changeStatus();
+      cout << "carers[0] : これから代わりに介護に向かいます" << endl;
+      carers[0].enter_care_position(pickup);
+    }
+
+    // 被介護者のもとに到着したら、被介護者のステータスを変更し、トイレに連れて行く
+    if (careRecipients[i].status() == 2 && carers[0].status() == 1){
+      double a = length(careRecipients[i].position(), carers[0].position());
+      if (a < 2.0){
+        // cout << "status = " << carers[0].status() << endl;
+        careRecipients[i].restroom(careRecipients[i].position());
+        cout << "carers[0] : 被介護者のもとに到着しました" << endl;
+        cout << "膀胱値は" << careRecipients[i].toiletCapacity() << "です" << endl;
+        carers[0].changeStatus();
+        // cout << carers[0].status() << endl;
+      }
+    } else if (careRecipients[i].status() == 2 && carers[1].status() == 1){
+      double b = length(careRecipients[i].position(), carers[1].position());
+      if (b < 2.0){
+        // cout << carers[1].status() << endl;
+        careRecipients[i].restroom(careRecipients[i].position());
+        cout << "carers[1] : 被介護者のもとに到着しました" << endl;
+        cout << "膀胱値は" << careRecipients[i].toiletCapacity() << "です" << endl;
+        carers[1].changeStatus();
+      }
+    }
+
+    //トイレに到着したら、しばらくトイレのところで静止して、その後元の場所に戻る
+    double c = length(careRecipients[i].position(),restroom);
+    if (careRecipients[i].status() == 2 && carers[0].status() == 2 && carers[0].restroomArrived()){
+      carers[0].changeStatus();
+      cout << "carers[0] : トイレに到着しました" << endl;
+      careRecipients[i].urinate();
+      cout << "膀胱値は" << careRecipients[i].toiletCapacity() << "です" << endl;
+      careRecipients[i].changeStatus();
+    } else if(careRecipients[i].status() == 2 && carers[1].status() == 2 && carers[1].restroomArrived()){
+      carers[1].changeStatus();
+      cout << "carers[1] : トイレに到着しました" << endl;
+      careRecipients[i].urinate();
+      cout << "膀胱値は" << careRecipients[i].toiletCapacity() << "です" << endl;
+      careRecipients[i].changeStatus();
+    }
+
+    // 元の場所に戻ったらステータスを変更する
+    if (careRecipients[i].status() == 3 && carers[0].status() == 3 && carers[0].care_is_finished()){
+      carers[0].changeStatus();
+      cout << "carer[0] : 介護終了しました"<< endl;
+      careRecipients[i].changeStatus();
+    } else if (careRecipients[i].status() == 3 && carers[1].status() == 3 && carers[1].care_is_finished()){
+      carers[1].changeStatus();
+      cout << "carer[1] : 介護終了しました"<< endl;
+      careRecipients[i].changeStatus();
+    }
+  }
+
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
   usleep(1000000 * TimeStep);

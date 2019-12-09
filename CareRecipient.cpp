@@ -8,6 +8,8 @@
 #include "Vector2D.h"
 #include "Wall.h"
 #include "Route.h"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -17,7 +19,7 @@ extern vector<Wall> walls;
 extern double TimeStep;
 extern double PresentTime;
 
-CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity){
+CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity,double r){
   _crid = id;
   _route = route;
   _velocity = velocity;
@@ -27,6 +29,7 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
   _desiredSpeed = 0.5;
   _status = 0;
   _careLevel = careLevel;
+  _toiletCapacity = r;
   _route->incrementRouteIndex();
 }
 
@@ -55,6 +58,10 @@ Vector2D* CareRecipient::velocity(){
 
 Route* CareRecipient::route(){
   return _route;
+}
+
+double CareRecipient::toiletCapacity(){
+  return _toiletCapacity;
 }
 
 // 歩行者を移動させる関数
@@ -157,7 +164,7 @@ void CareRecipient::changeStatus(){
     _status = 2;
   } else if (_status == 2){
     _status = 3;
-  } else {
+  } else if (_status == 3){
     _status = 0;
   }
 }
@@ -166,6 +173,27 @@ void CareRecipient::restroom(Vector2D* position){
   Vector2D* restroom = new Vector2D(25,30);
   _route->insertNext(restroom);
   _route->insertNext(position);
+}
+
+void CareRecipient::urinate(){
+  _toiletCapacity -= 125;
+  if (_toiletCapacity <= 0.0) {
+    _toiletCapacity = 0.0;
+  }
+}
+
+void CareRecipient::toiletIndicate(){
+  srand(time(NULL));
+  double t = rand()%30;
+  if(_toiletCapacity > 100 && _status == 0 && _careLevel == 0){
+    _status = 1;
+  } else if (_toiletCapacity > 50 + t && _status == 0 && _careLevel == 1){
+    _status = 1;
+  }
+}
+
+void CareRecipient::urinaryIntention(){
+  _toiletCapacity += 1.0;
 }
 
 void CareRecipient::goIniPosition(){
