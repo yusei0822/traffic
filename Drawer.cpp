@@ -16,11 +16,11 @@ using namespace std;
 
 // 他ファイルで定義している変数の読み込み
 extern vector<Pedestrian> pedestrians;
-extern vector<Carer> carers;
 extern vector<Wall> walls;
 extern double PresentTime;
 
 vector<CareRecipient> careRecipients;
+vector<Carer> carers;
 
 // 環境の描画
 void drawWall(){
@@ -59,6 +59,55 @@ void drawCarer(){
   AutoGL_SetColor(0,0,1);
   vector<Carer> tmpCarers;
   tmpCarers.clear();
+
+  // 介護士を生成
+  static int cid = 0;
+  Vector2D* v0 = new Vector2D(0,0);
+  // 一人目の介護士の作成
+  if(PresentTime > 0.99 && PresentTime<1.01){
+    Route* route1 = new Route();
+    // 巡回経路作成のための経路の配列を作成
+    vector<pair<double, double > > subGoal;
+    subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // subGoal.push_back(make_pair(-25,-25));
+    // subGoal.push_back(make_pair(25,-25));
+    // 巡回経路を作成
+    for(unsigned int i = 0; i < subGoal.size(); i++){
+      Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
+      route1->addNext(vec);
+    }
+    Carer *c1 = new Carer(cid, route1, v0);
+    carers.push_back(*c1);
+  }
+
+  // 二人目の介護士の作成
+  cid = 1;
+  if(PresentTime > 0.99 && PresentTime<1.01){
+    Route* route2 = new Route();
+    vector<pair<double, double > > subGoal;
+    // 巡回経路作成のための経路の配列を作成
+    subGoal.push_back(make_pair(25,25));
+    // subGoal.push_back(make_pair(0,0));
+    // subGoal.push_back(make_pair(25,25));
+    // subGoal.push_back(make_pair(-25,25));
+    // subGoal.push_back(make_pair(0,0));
+    // subGoal.push_back(make_pair(-25,25));
+    // subGoal.push_back(make_pair(25,25));
+    // subGoal.push_back(make_pair(-25,25));
+    // 巡回経路を作成
+    for(unsigned int i = 0; i < subGoal.size(); i++){
+      Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
+      route2->addNext(vec);
+    }
+    Carer *c2 = new Carer(cid, route2, v0);
+    carers.push_back(*c2);
+  }
+
   for(unsigned int i=0;i<carers.size();i++){
     Carer *c = &carers[i];
     // 加速度を決定
