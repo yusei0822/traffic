@@ -9,7 +9,6 @@
 #include <time.h>
 #include "Drawer.h"
 #include "Calculation.h"
-#include "Pedestrian.h"
 #include "Carer.h"
 #include "CareRecipient.h"
 #include "Wall.h"
@@ -26,7 +25,6 @@ extern vector<CareRecipient> careRecipients;
 extern vector<Carer> carers;
 
 // 各モデルの配列
-vector<Pedestrian> pedestrians;
 vector<Wall> walls;
 
 //再描画

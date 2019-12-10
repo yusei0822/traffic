@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <ctime>
 #include "Calculation.h"
-#include "Pedestrian.h"
 #include "Carer.h"
 #include "CareRecipient.h"
 #include "Vector2D.h"
@@ -15,7 +14,6 @@
 using namespace std;
 
 // 他ファイルで定義している変数の読み込み
-extern vector<Pedestrian> pedestrians;
 extern vector<Wall> walls;
 extern double PresentTime;
 
