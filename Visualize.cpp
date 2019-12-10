@@ -107,10 +107,10 @@ void idleEvent()
 {
   PresentTime += TimeStep;
 
-  // // コンソール上で見やすいように時間を表示
-  // if((int)(PresentTime*10)%10 == 0){
-  //   cout<<"Time:"<<(int)PresentTime<<endl;
-  // }
+  // コンソール上で見やすいように時間を表示
+  if((int)(PresentTime*10)%10 == 0){
+    cout<<"Time:"<<(int)PresentTime<<endl;
+  }
 
 // 10分ごとに結果を出力する
   if((int)(PresentTime*10)%6000 == 0){
