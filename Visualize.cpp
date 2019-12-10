@@ -22,11 +22,11 @@ using namespace std;
 
 extern double PresentTime;
 extern double TimeStep;
+extern vector<CareRecipient> careRecipients;
 
 // 各モデルの配列
 vector<Pedestrian> pedestrians;
 vector<Carer> carers;
-vector<CareRecipient> careRecipients;
 vector<Wall> walls;
 
 //再描画
@@ -194,65 +194,6 @@ void idleEvent()
     carers.push_back(*c2);
   }
 
-  // 被介護者の作成
-  int iniX = 15;
-  int iniY = 10;
-  int crid = 0;
-  int d =0;
-  int careLevel = 0;
-  vector<pair<int,int > > iniPositions;
-  vector<int> careLevels;
-  // 被介護者の初期位置を入力
-  iniPositions.push_back(make_pair(iniX+10,d));
-  iniPositions.push_back(make_pair(iniX,iniY+d));
-  iniPositions.push_back(make_pair(iniX-10,d));
-  iniPositions.push_back(make_pair(iniX,-iniY+d));
-  iniPositions.push_back(make_pair(-iniX-10,d));
-  iniPositions.push_back(make_pair(-iniX,iniY+d));
-  iniPositions.push_back(make_pair(-iniX+10,d));
-  iniPositions.push_back(make_pair(-iniX,-iniY+d));
-  // iniPositions.push_back(make_pair(iniX+10,-d));
-  // iniPositions.push_back(make_pair(iniX,iniY-d));
-  // iniPositions.push_back(make_pair(iniX-10,-d));
-  // iniPositions.push_back(make_pair(iniX,-iniY-d));
-  // iniPositions.push_back(make_pair(-iniX-10,-d));
-  // iniPositions.push_back(make_pair(-iniX,iniY-d));
-  // iniPositions.push_back(make_pair(-iniX+10,-d));
-  // iniPositions.push_back(make_pair(-iniX,-iniY-d));
-  // 被介護者の要介護レベルを設定
-  careLevels.push_back(0);
-  careLevels.push_back(1);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(1);
-  // careLevels.push_back(1);
-  // careLevels.push_back(1);
-  // careLevels.push_back(2);
-  // careLevels.push_back(2);
-  // careLevels.push_back(3);
-  // careLevels.push_back(3);
-  // careLevels.push_back(3);
-  // careLevels.push_back(4);
-  // 被介護者を作成
-  srand(time(NULL));
-  if(PresentTime > 0.99 && PresentTime<1.01){
-    for(unsigned i = 0;i < iniPositions.size();i++){
-      Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
-      Route* crRoute = new Route();
-      careLevel = careLevels[i];
-      crRoute->addNext(iniPosition);
-      // cout << crid << endl;
-      int r = rand()%80 + 1;
-      cout << "初期値は" << r << "です" << endl;
-      CareRecipient *cr = new CareRecipient(crid, careLevel, crRoute, v0, r);
-      // cout << "crRoute:" << crRoute << endl;
-      careRecipients.push_back(*cr);
-      crid++;
-    }
-  }
 
   // 毎秒ごとにトイレに行きたいかどうかを判定
   for(unsigned i=0;i < careRecipients.size();i++){

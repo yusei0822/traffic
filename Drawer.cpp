@@ -2,6 +2,8 @@
 #include <vector>
 #include <autogl.h>
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 #include "Calculation.h"
 #include "Pedestrian.h"
 #include "Carer.h"
@@ -15,8 +17,10 @@ using namespace std;
 // 他ファイルで定義している変数の読み込み
 extern vector<Pedestrian> pedestrians;
 extern vector<Carer> carers;
-extern vector<CareRecipient> careRecipients;
 extern vector<Wall> walls;
+extern double PresentTime;
+
+vector<CareRecipient> careRecipients;
 
 // 環境の描画
 void drawWall(){
@@ -78,6 +82,69 @@ void drawCarer(){
 void drawCareRecipient(){
   vector<CareRecipient> tmpCareRecipients;
   tmpCareRecipients.clear();
+
+  // 被介護者の作成
+  int iniX = 15;
+  int iniY = 10;
+  int crid = 0;
+  int d =0;
+  Vector2D* v0 = new Vector2D(0,0);
+  int careLevel = 0;
+  vector<pair<int,int > > iniPositions;
+  vector<int> careLevels;
+  // 被介護者の初期位置を入力
+  iniPositions.push_back(make_pair(iniX+10,d));
+  iniPositions.push_back(make_pair(iniX,iniY+d));
+  iniPositions.push_back(make_pair(iniX-10,d));
+  iniPositions.push_back(make_pair(iniX,-iniY+d));
+  iniPositions.push_back(make_pair(-iniX-10,d));
+  iniPositions.push_back(make_pair(-iniX,iniY+d));
+  iniPositions.push_back(make_pair(-iniX+10,d));
+  iniPositions.push_back(make_pair(-iniX,-iniY+d));
+  // iniPositions.push_back(make_pair(iniX+10,-d));
+  // iniPositions.push_back(make_pair(iniX,iniY-d));
+  // iniPositions.push_back(make_pair(iniX-10,-d));
+  // iniPositions.push_back(make_pair(iniX,-iniY-d));
+  // iniPositions.push_back(make_pair(-iniX-10,-d));
+  // iniPositions.push_back(make_pair(-iniX,iniY-d));
+  // iniPositions.push_back(make_pair(-iniX+10,-d));
+  // iniPositions.push_back(make_pair(-iniX,-iniY-d));
+  // 被介護者の要介護レベルを設定
+  careLevels.push_back(0);
+  careLevels.push_back(1);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(1);
+  // careLevels.push_back(1);
+  // careLevels.push_back(1);
+  // careLevels.push_back(2);
+  // careLevels.push_back(2);
+  // careLevels.push_back(3);
+  // careLevels.push_back(3);
+  // careLevels.push_back(3);
+  // careLevels.push_back(4);
+  // 被介護者を作成
+  srand(time(NULL));
+  if(PresentTime > 0.99 && PresentTime<1.01){
+    for(unsigned i = 0;i < iniPositions.size();i++){
+      Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
+      Route* crRoute = new Route();
+      careLevel = careLevels[i];
+      crRoute->addNext(iniPosition);
+      // cout << crid << endl;
+      int r = rand()%80 + 1;
+      cout << "初期値は" << r << "です" << endl;
+      CareRecipient *cr = new CareRecipient(crid, careLevel, crRoute, v0, r);
+      // cout << "crRoute:" << crRoute << endl;
+      careRecipients.push_back(*cr);
+      crid++;
+    }
+  }
+
+
   for(unsigned int i=0;i<careRecipients.size();i++){
     CareRecipient *cr = &careRecipients[i];
     // // 加速度を決定
