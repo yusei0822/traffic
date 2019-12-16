@@ -89,30 +89,44 @@ void CareRecipient::decideAcceleration(){
   Vector2D* e_a = uVec(sVec(_route->next(), _position));
   Vector2D* f1 = mVec(1/0.5, sVec(mVec(_desiredSpeed, e_a), _velocity));
   //===============================================
-    // 他のエージェントからの斥力
-    // 変数の定義
-    double v0_ab = 2.1;
-    double s = 0.3;
-    Vector2D* f2 = new Vector2D(0,0);
-    /// 自分以外の全介護者から受ける力を計算
-    for (unsigned int i=0; i<careRecipients.size(); i++){
-      if(&(careRecipients[i]) == this){
-        continue;
-      }
-    // 相対距離の計算
-        Vector2D* r_a = _position;
-        Vector2D* v_b = careRecipients[i].velocity();
-        Vector2D* r_b = careRecipients[i].position();
-        Vector2D* r_ab = sVec(r_a, r_b);
-      // 相手側の希望進行方向
-        Vector2D* e_b = uVec(sVec(careRecipients[i].route()->next(),careRecipients[i].position()));
-      // 相手側の希望進行距離
-        double s_b = v_b->size() * 0.1;
-        double b = sqrt( pow((r_ab->size() + (sVec(r_ab, mVec(s_b, e_b)))->size()),2.0) - pow(s_b,2.0))/2.0;
-      // ポテンシャル場の計算
-        double v_ab = v0_ab * exp(-1 * b / s);
-        f2 = aVec(f2,mVec(-1*v_ab,uVec(r_ab)));
+  Vector2D* f2 = new Vector2D(0,0);
+  // 変数の定義
+  double v0_ab = 2.1;
+  double s = 0.3;
+  // 自分との距離が最小のエージェントを特定する変数
+  int min_i = 0;
+  Vector2D* iniR = new Vector2D(0,0);
+  double comparedLength = 0.0;
+  /// 自分に最も近いエージェントからの斥力を計算
+  // 自分に最も近いエージェントを特定
+  for (unsigned int i=0; i<careRecipients.size(); i++){
+    if(&(careRecipients[i]) == this){
+      continue;
     }
+  // 相対距離の計算
+    Vector2D* r_a = _position;
+    Vector2D* v_b = careRecipients[i].velocity();
+    Vector2D* r_b = careRecipients[i].position();
+    Vector2D* r_ab = sVec(r_a, r_b);
+    comparedLength = min(iniR->size(),r_ab->size());
+    if(comparedLength == r_ab->size()){
+      min_i += 1;
+      iniR = r_ab;
+    }
+  }
+  // 斥力の計算
+  Vector2D* r_a = _position;
+  Vector2D* v_b = careRecipients[min_i].velocity();
+  Vector2D* r_b = careRecipients[min_i].position();
+  Vector2D* r_ab = sVec(r_a, r_b);
+  // 相手側の希望進行方向
+  Vector2D* e_b = uVec(sVec(careRecipients[min_i].route()->next(),careRecipients[min_i].position()));
+  // 相手側の希望進行距離
+  double s_b = v_b->size() * 0.1;
+  double b = sqrt( pow((r_ab->size() + (sVec(r_ab, mVec(s_b, e_b)))->size()),2.0) - pow(s_b,2.0))/2.0;
+  // ポテンシャル場の計算
+  double v_ab = v0_ab * exp(-1 * b / s);
+  f2 = aVec(f2,mVec(-1*v_ab,uVec(r_ab)));
   //===============================================){
   // 壁からの斥力
   // 変数の定義
