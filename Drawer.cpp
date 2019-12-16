@@ -14,11 +14,12 @@
 using namespace std;
 
 // 他ファイルで定義している変数の読み込み
-extern vector<Wall> walls;
 extern double PresentTime;
 
+// 変数の定義
 vector<CareRecipient> careRecipients;
 vector<Carer> carers;
+vector<Wall> walls;
 
 // 環境の描画
 void drawWall(){

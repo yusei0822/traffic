@@ -24,9 +24,6 @@ extern double TimeStep;
 extern vector<CareRecipient> careRecipients;
 extern vector<Carer> carers;
 
-// 各モデルの配列
-vector<Wall> walls;
-
 //再描画
 static void redrawView();
 
@@ -137,6 +134,7 @@ void idleEvent()
       careRecipients[i].urinaryIntention();
     }
   }
+  
   // トイレを我慢している人がいればその人が我慢している秒数を加算
   for(unsigned int i = 0;i<careRecipients.size();i++){
     if(careRecipients[i].toiletCapacity()>100.0){
