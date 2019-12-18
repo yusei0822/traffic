@@ -24,8 +24,7 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
   _position = _route->next();
   // _carePosition = velocity;
   _status = 0;
-  // _desiredSpeed = 1.34;
-  _desiredSpeed = 0.5;
+  _desiredSpeed = 1.34;
   _route->incrementRouteIndex();
 }
 
