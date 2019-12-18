@@ -48,7 +48,11 @@ void visualize()
   AutoGL_SetViewDirection(0, 0, 1);  //視線方向
 
   //歩行者と壁の記述
+  clock_t drawStart = clock();
   AutoGL_SetViewRedrawCallback(redrawView);
+  clock_t drawEnd = clock();
+  const double time = static_cast<double>(drawEnd - drawStart)/CLOCKS_PER_SEC*1000.0;
+  cout << "歩行者と壁の記述にかかった時間は" << time << "秒です" << endl;
 
  /* おまじない */
   AutoGL_SetMode2D(AUTOGL_MODE_2D_SCALE);  /* マウスで回転 */
@@ -58,18 +62,19 @@ void visualize()
   AutoGL_SetPanelInMode2D();               /* 移動拡大縮小など */
 
   /* Animateボタンをつける */
+  clock_t animateStart = clock();
   AutoGL_AddCallback(animateButtonCallback, "animateButtonCallback");
   AutoGL_SetLabel("Animate");
+  clock_t animateEnd = clock();
+  const double time_a = static_cast<double>(animateEnd - animateStart)/CLOCKS_PER_SEC*1000.0;
+  cout << "animateにかかった時間は" << time_a << "秒です" << endl;
+
 
   /* Quitボタンをつける */
   AutoGL_AddCallback(quitButtonCallback, "qiutButtonCallback");
   AutoGL_SetLabel("Quit");
 
   Size=AutoGL_GetViewSize();
-
-  //乱数指定
-  srand((unsigned)time(NULL));
-
 }
 
 // 壁と歩行者の記述
@@ -134,7 +139,7 @@ void idleEvent()
       careRecipients[i].urinaryIntention();
     }
   }
-  
+
   // トイレを我慢している人がいればその人が我慢している秒数を加算
   for(unsigned int i = 0;i<careRecipients.size();i++){
     if(careRecipients[i].toiletCapacity()>100.0){
@@ -148,6 +153,8 @@ void idleEvent()
   }
 
   // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
+  if((int)(PresentTime*10)%10 == 0){
+  clock_t careStart = clock();
   for(unsigned int i=0;i < careRecipients.size();i++){
     Vector2D* restroom = new Vector2D(25,100);
     Vector2D* iniPosition = careRecipients[i].position();
@@ -239,10 +246,20 @@ void idleEvent()
       careRecipients[i].changeStatus();
     }
   }
+  clock_t careEnd = clock();
+  const double time_c = static_cast<double>(careEnd - careStart)/CLOCKS_PER_SEC*1000.0;
+  cout << "介護処理にかかっている時間は" << time_c << "秒です" << endl;
+  }
+
 
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
   // usleep(1000000 * TimeStep);
+
+// 1時間たったら強制的にシミュレーションを終わる
+  if((int)(PresentTime*10)%36000 == 0){
+    exit(EXIT_SUCCESS);
+  }
 }
 
 void quitButtonCallback()

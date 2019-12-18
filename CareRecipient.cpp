@@ -25,8 +25,7 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
   _velocity = velocity;
   _acceleration = 0;
   _position = _route->next();
-  // _desiredSpeed = 1.34;
-  _desiredSpeed = 0.5;
+  _desiredSpeed = 1.34;
   _status = 0;
   _careLevel = careLevel;
   _toiletCapacity = r;
