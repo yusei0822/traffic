@@ -25,7 +25,7 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
   _velocity = velocity;
   _acceleration = 0;
   _position = _route->next();
-  _desiredSpeed = 1.34;
+  _desiredSpeed = 0.5;
   _status = 0;
   _careLevel = careLevel;
   _toiletCapacity = r;
@@ -104,7 +104,6 @@ void CareRecipient::decideAcceleration(){
     }
   // 相対距離の計算
     Vector2D* r_a = _position;
-    Vector2D* v_b = careRecipients[i].velocity();
     Vector2D* r_b = careRecipients[i].position();
     Vector2D* r_ab = sVec(r_a, r_b);
     comparedLength = min(iniR->size(),r_ab->size());
@@ -129,8 +128,8 @@ void CareRecipient::decideAcceleration(){
   //===============================================){
   // 壁からの斥力
   // 変数の定義
-  double u0_ab = 10;
-  double r = 0.2;
+  // double u0_ab = 10;
+  // double r = 0.2;
   Vector2D* f3 = new Vector2D(0,0);
   /// 周囲の壁から受ける力を計算
   // for (unsigned int i=0; i<walls.size(); i++)

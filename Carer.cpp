@@ -24,7 +24,7 @@ Carer::Carer(int id, Route* route, Vector2D* velocity){
   _position = _route->next();
   // _carePosition = velocity;
   _status = 0;
-  _desiredSpeed = 1.34;
+  _desiredSpeed = 0.5;
   _route->incrementRouteIndex();
 }
 
@@ -74,10 +74,10 @@ void Carer::stop(){
 // 加速度を決定する関数
 void Carer::decideAcceleration(){
   //===============================================
-  // 移動目標に近づく力
-  /// 移動目標に向かう単位ベクトル
-    Vector2D* e_a = uVec(sVec(_route->next(), _position));
-    Vector2D* f1 = mVec(1/0.5, sVec(mVec(_desiredSpeed, e_a), _velocity));
+    // 移動目標に近づく力
+    /// 移動目標に向かう単位ベクトル
+      Vector2D* e_a = uVec(sVec(_route->next(), _position));
+      Vector2D* f1 = mVec(1/0.5, sVec(mVec(_desiredSpeed, e_a), _velocity));
     // cout<<"f1:"<<"x="<<f1->x()<<",y="<<f1->y()<<endl;
   //===============================================
     // 他のエージェントからの斥力
