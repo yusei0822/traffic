@@ -107,13 +107,13 @@ void idleEvent()
 {
   PresentTime += TimeStep;
 
-  // コンソール上で見やすいように時間を表示
-  if((int)(PresentTime*10)%10 == 0){
-    cout<<"Time:"<<(int)PresentTime<<endl;
+  // コンソール上で見やすいように1分ごとに時間を表示
+  if((int)(PresentTime*10)%600 == 0){
+    cout<<"Time:"<<(int)PresentTime/60<<"分"<<endl;
   }
 
-// 10分ごとに結果を出力する
-  if((int)(PresentTime*10)%6000 == 0){
+// 2時間ごとに結果を出力する
+  if((int)(PresentTime*10)%72000 == 0){
     int success = 0;
     int totalNumber = 0;
     double totalSeconds = 0;
@@ -123,13 +123,6 @@ void idleEvent()
       totalSeconds += careRecipients[i].numberOfEndureSeconds();
     }
     cout << "今回の結果は" << totalNumber << "回中" <<  success << "回介護に成功し、延べ我慢時間は" << totalSeconds << "秒でした。" << endl;
-  }
-
-// 結果の出力ごとに値を初期化する
-  if((int)(PresentTime*10)%6000 == 1){
-    for(unsigned int i = 0;i<careRecipients.size();i++){
-      careRecipients[i].initializeNumber();
-    }
   }
 
   // 毎秒ごとに被介護者の膀胱の値を加算
@@ -154,7 +147,7 @@ void idleEvent()
 
   // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
   if((int)(PresentTime*10)%10 == 0){
-  clock_t careStart = clock();
+  // clock_t careStart = clock();
   for(unsigned int i=0;i < careRecipients.size();i++){
     Vector2D* restroom = new Vector2D(25,100);
     Vector2D* iniPosition = careRecipients[i].position();
@@ -246,18 +239,16 @@ void idleEvent()
       careRecipients[i].changeStatus();
     }
   }
-  clock_t careEnd = clock();
-  const double time_c = static_cast<double>(careEnd - careStart)/CLOCKS_PER_SEC*1000.0;
-  cout << "介護処理にかかっている時間は" << time_c << "秒です" << endl;
+  // clock_t careEnd = clock();
+  // const double time_c = static_cast<double>(careEnd - careStart)/CLOCKS_PER_SEC*1000.0;
   }
-
 
   AutoGL_DrawView();
   // 可視化時に見やすいように処理を一時的に止める
-  // usleep(1000000 * TimeStep);
+  // usleep(100000 * TimeStep);
 
 // 1時間たったら強制的にシミュレーションを終わる
-  if((int)(PresentTime*10)%36000 == 0){
+  if((int)(PresentTime*10)%72000 == 0){
     exit(EXIT_SUCCESS);
   }
 }

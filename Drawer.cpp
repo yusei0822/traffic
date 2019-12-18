@@ -63,18 +63,12 @@ void drawCarer(){
   static int cid = 0;
   Vector2D* v0 = new Vector2D(0,0);
   // 一人目の介護士の作成
-  if(PresentTime > 0.99 && PresentTime<1.01){
+  if(PresentTime > 3.0 && PresentTime < 5.0){
+    cout << "aaa" << endl;
     Route* route1 = new Route();
     // 巡回経路作成のための経路の配列を作成
     vector<pair<double, double > > subGoal;
     subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
-    // subGoal.push_back(make_pair(-25,-25));
-    // subGoal.push_back(make_pair(25,-25));
     // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -86,18 +80,11 @@ void drawCarer(){
 
   // 二人目の介護士の作成
   cid = 1;
-  if(PresentTime > 0.99 && PresentTime<1.01){
+  if(PresentTime > 3.0 && PresentTime < 5.0){
     Route* route2 = new Route();
     vector<pair<double, double > > subGoal;
     // 巡回経路作成のための経路の配列を作成
     subGoal.push_back(make_pair(25,25));
-    // subGoal.push_back(make_pair(0,0));
-    // subGoal.push_back(make_pair(25,25));
-    // subGoal.push_back(make_pair(-25,25));
-    // subGoal.push_back(make_pair(0,0));
-    // subGoal.push_back(make_pair(-25,25));
-    // subGoal.push_back(make_pair(25,25));
-    // subGoal.push_back(make_pair(-25,25));
     // 巡回経路を作成
     for(unsigned int i = 0; i < subGoal.size(); i++){
       Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
@@ -149,14 +136,6 @@ void drawCareRecipient(){
   iniPositions.push_back(make_pair(-iniX,iniY+d));
   iniPositions.push_back(make_pair(-iniX+10,d));
   iniPositions.push_back(make_pair(-iniX,-iniY+d));
-  // iniPositions.push_back(make_pair(iniX+10,-d));
-  // iniPositions.push_back(make_pair(iniX,iniY-d));
-  // iniPositions.push_back(make_pair(iniX-10,-d));
-  // iniPositions.push_back(make_pair(iniX,-iniY-d));
-  // iniPositions.push_back(make_pair(-iniX-10,-d));
-  // iniPositions.push_back(make_pair(-iniX,iniY-d));
-  // iniPositions.push_back(make_pair(-iniX+10,-d));
-  // iniPositions.push_back(make_pair(-iniX,-iniY-d));
   // 被介護者の要介護レベルを設定
   careLevels.push_back(0);
   careLevels.push_back(1);
@@ -166,17 +145,9 @@ void drawCareRecipient(){
   careLevels.push_back(0);
   careLevels.push_back(0);
   careLevels.push_back(1);
-  // careLevels.push_back(1);
-  // careLevels.push_back(1);
-  // careLevels.push_back(2);
-  // careLevels.push_back(2);
-  // careLevels.push_back(3);
-  // careLevels.push_back(3);
-  // careLevels.push_back(3);
-  // careLevels.push_back(4);
   // 被介護者を作成
   srand(time(NULL));
-  if(PresentTime > 0.99 && PresentTime<1.01){
+  if(PresentTime > 3.0 && PresentTime < 5.0){
     for(unsigned i = 0;i < iniPositions.size();i++){
       Vector2D* iniPosition = new Vector2D(iniPositions[i].first, iniPositions[i].second);
       Route* crRoute = new Route();
