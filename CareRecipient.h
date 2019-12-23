@@ -41,6 +41,8 @@ public:
   CareRecipient(int id, int careLevel, Route* route, Vector2D* velocity, double r);
   // デストラクタ
   ~CareRecipient();
+  // idを返す
+  int id();
   // ステータスを返す
   int status();
   // 要介護度を返す

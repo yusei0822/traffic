@@ -78,21 +78,21 @@ void drawCarer(){
     carers.push_back(*c1);
   }
 
-  // 二人目の介護士の作成
-  cid = 1;
-  if(PresentTime > 3.0 && PresentTime < 5.0){
-    Route* route2 = new Route();
-    vector<pair<double, double > > subGoal;
-    // 巡回経路作成のための経路の配列を作成
-    subGoal.push_back(make_pair(25,25));
-    // 巡回経路を作成
-    for(unsigned int i = 0; i < subGoal.size(); i++){
-      Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
-      route2->addNext(vec);
-    }
-    Carer *c2 = new Carer(cid, route2, v0);
-    carers.push_back(*c2);
-  }
+  // // 二人目の介護士の作成
+  // cid = 1;
+  // if(PresentTime > 3.0 && PresentTime < 5.0){
+  //   Route* route2 = new Route();
+  //   vector<pair<double, double > > subGoal;
+  //   // 巡回経路作成のための経路の配列を作成
+  //   subGoal.push_back(make_pair(25,25));
+  //   // 巡回経路を作成
+  //   for(unsigned int i = 0; i < subGoal.size(); i++){
+  //     Vector2D* vec = new Vector2D(subGoal[i].first, subGoal[i].second);
+  //     route2->addNext(vec);
+  //   }
+  //   Carer *c2 = new Carer(cid, route2, v0);
+  //   carers.push_back(*c2);
+  // }
 
   for(unsigned int i=0;i<carers.size();i++){
     Carer *c = &carers[i];

@@ -37,6 +37,10 @@ CareRecipient::CareRecipient(int id, int careLevel, Route* route, Vector2D* velo
 CareRecipient::~CareRecipient(){
 }
 
+int CareRecipient::id(){
+  return _crid;
+}
+
 int CareRecipient::status(){
   return _status;
 }

@@ -30,6 +30,8 @@ public:
   Carer(int id, Route* route, Vector2D* velocity);
   // デストラクタ
   ~Carer();
+  // idを返す
+  int id();
   // 看護状況を返す
   int status();
   // 現在の場所を返す
