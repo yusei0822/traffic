@@ -68,7 +68,7 @@ public:
   // イベントフラグ
   void changeStatus();
   // トイレに向かう
-  void restroom(Vector2D* position);
+  void restroom();
   // 膀胱値を加算
   void urinaryIntention();
   // トイレに行きたいと意思表示する

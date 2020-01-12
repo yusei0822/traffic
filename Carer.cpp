@@ -76,8 +76,13 @@ void Carer::walk(){
 
 // その場で止まる関数
 void Carer::stop(){
-  _velocity = 0;
-  _acceleration = 0;
+  Vector2D* v = _velocity;
+  Vector2D* a = _acceleration;
+  Vector2D* zero = new Vector2D(0,0);
+  cout << _velocity->x() << endl;
+  _velocity = zero;
+  cout << _velocity->x() << endl;
+  _acceleration = zero;
 }
 
 // 加速度を決定する関数

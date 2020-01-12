@@ -146,82 +146,117 @@ void idleEvent()
     careRecipients[i].toiletIndicate();
   }
 
-  // 要介護イベントが発生した時に、距離的に近い介護者が非介護者の元へ向かう
+  // 要介護イベントが発生した場合
   if((int)(PresentTime*10)%10 == 0){
-
-      vector <Carer> preCarers;
-      for(unsigned int i = 0;i<carers.size();i++)
-      {
-        if(carers[i].status()==0)
-        {
-          preCarers.push_back(carers[i]);
-        }
-      }
-
-      vector <CareRecipient> precareRecipients;
-      for(unsigned int i = 0;i<careRecipients.size();i++)
-      {
-        if(careRecipients[i].status()==1)
-        {
-          precareRecipients.push_back(careRecipients[i]);
-        }
-      }
-
-      vector <vector <double> > lengthTable;
-      for(unsigned int i = 0; i < precareRecipients.size(); i++)
-      {
-        vector<double> tmpLengths;
-        for(unsigned int j = 0; j < preCarers.size(); j++)
-        {
-          double tmpLength = length(precareRecipients[i].position(),preCarers[j].position());
-          tmpLengths.push_back(tmpLength);
-        }
-        lengthTable.push_back(tmpLengths);
-      }
-
-      int numCarers = preCarers.size();
-      int numCareRecipients = precareRecipients.size();
-      while( numCarers != 0 && numCareRecipients != 0)
-      {
-        double minLength = 10000000;
-        int minCareIndex;
-        int minReciIndex;
-        for(unsigned int i = 0; i < precareRecipients.size(); i++)
-        {
-          int index = min_element(lengthTable[i].begin(),lengthTable[i].end()) - lengthTable[i].begin();
-
-//          cout << "debug1 " <<  index << endl;
-          if (minLength > lengthTable[i][index])
-          {
-            minLength = lengthTable[i][index];
-            minCareIndex = index;
-            minReciIndex = i;
-          }
-        }
-//        cout << "debug2 " << minCareIndex << " " << minReciIndex << endl;
-        int crid = precareRecipients[minReciIndex].id();
-        int cid = preCarers[minCareIndex].id();
-
-        Vector2D* pickup = precareRecipients[crid].position();
-        preCarers[cid].changeStatus();
-        preCarers[cid].restroom(pickup);
-        precareRecipients[crid].changeStatus();
-
-        for(unsigned int i = 0; i < precareRecipients.size(); i++)
-        {
-          lengthTable[i][minCareIndex] = 10000000;
-        }
-
-        for(unsigned int i = 0; i < preCarers.size(); i++)
-        {
-          lengthTable[minCareIndex][i] = 10000000;
-        }
-        numCarers--;
-        numCareRecipients--;
+    // ある時点で介護可能な介護者のリストを作成
+    vector <Carer> preCarers;
+    for(unsigned int i = 0;i<carers.size();i++){
+      if(carers[i].status()==0){
+        preCarers.push_back(carers[i]);
       }
     }
+    // ある時点で介護されるべき被介護者のリストを作成
+    vector <CareRecipient> precareRecipients;
+    for(unsigned int i = 0;i<careRecipients.size();i++){
+      if(careRecipients[i].status()==1){
+      precareRecipients.push_back(careRecipients[i]);
+      }
+    }
+    // ある時点における、ある被介護者とすべての介護者との距離のリストを人数分作成
+    vector <vector <double> > lengthTable;
+    int numCarers = preCarers.size();
+    int numCareRecipients = precareRecipients.size();
+    for(unsigned int i = 0; i < numCareRecipients; i++){
+      vector<double> tmpLengths;
+      for(unsigned int j = 0; j < numCarers; j++){
+        double tmpLength = length(precareRecipients[i].position(),preCarers[j].position());
+        tmpLengths.push_back(tmpLength);
+      }
+      lengthTable.push_back(tmpLengths);
+    }
 
-    AutoGL_DrawView();
+    // 全数探索で最も距離の近いペアを作成
+    int cid = 0;
+    int crid = 0;
+    while( numCarers != 0 && numCareRecipients != 0){
+      double minLength = 10000000;
+      int minCareIndex;
+      int minReciIndex;
+      for(unsigned int i = 0; i < precareRecipients.size(); i++){
+        // careRecipients[i]に対応する介護者の中で一番距離の近い介護者のindexを取得
+        int index = min_element(lengthTable[i].begin(),lengthTable[i].end()) - lengthTable[i].begin();
+//          cout << "debug1 " <<  index << endl;
+        if (minLength > lengthTable[i][index]){
+          minLength = lengthTable[i][index];
+          minCareIndex = index;
+          minReciIndex = i;
+        }
+      }
+//        cout << "debug2 " << minCareIndex << " " << minReciIndex << endl;
+      crid = precareRecipients[minReciIndex].id();
+      cid = preCarers[minCareIndex].id();
+      Vector2D* pickup = careRecipients[crid].position();
+      carers[cid].changeStatus();
+      carers[cid].restroom(pickup);
+      careRecipients[crid].changeStatus();
+
+      // 初期化
+      for(unsigned int i = 0; i < precareRecipients.size(); i++){
+        lengthTable[i][minCareIndex] = 10000000;
+      }
+      for(unsigned int i = 0; i < preCarers.size(); i++){
+        lengthTable[minCareIndex][i] = 10000000;
+      }
+      numCarers--;
+      numCareRecipients--;
+    }
+  }
+
+  // 介護ペアが発生した時
+  if((int)(PresentTime*10)%10 == 0){
+    // 介護者と被介護者の距離が近くなったら、一緒にトイレに向かう
+    for(unsigned int i=0;i < careRecipients.size();i++){
+      for(unsigned int j =0;j < carers.size();j++){
+        if(carers[j].status() == 1 && careRecipients[i].status() == 2){
+          double disFromCarertoCareRecipient = length(carers[j].position(),careRecipients[i].position());
+          if(disFromCarertoCareRecipient < 3.0){
+            carers[j].changeStatus();
+            careRecipients[i].restroom();
+            careRecipients[i].changeStatus();
+          }
+        }
+      }
+    }
+    // トイレに到着したら数分間停止し、排尿を行う。その後元の場所に戻る
+    for(unsigned int i=0;i < careRecipients.size();i++){
+      for(unsigned int j =0;j < carers.size();j++){
+        if(carers[j].status() == 2 && careRecipients[i].status() == 3){
+          Vector2D* restroom = new Vector2D(25,30);
+          double disFromToilet = length(carers[j].position(),restroom);
+          if(disFromToilet < 3.0){
+            careRecipients[i].urinate();
+            carers[j].changeStatus();
+            careRecipients[i].changeStatus();
+          }
+        }
+      }
+    }
+    // 元の場所に戻ったらステータスを元の状態に戻す
+    for(unsigned int i=0;i < careRecipients.size();i++){
+      for(unsigned int j =0;j < carers.size();j++){
+        if(carers[j].status() == 3 && careRecipients[i].status() == 4){
+          double dis = length(carers[j].position(),careRecipients[i].position());
+          if(dis > 10.0){
+            carers[j].changeStatus();
+            careRecipients[i].changeStatus();
+          }
+        }
+      }
+    }
+  }
+
+  AutoGL_DrawView();
+
   // 可視化時に見やすいように処理を一時的に止める
   // usleep(100000 * TimeStep);
 

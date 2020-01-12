@@ -188,14 +188,16 @@ void CareRecipient::changeStatus(){
   } else if (_status == 2){
     _status = 3;
   } else if (_status == 3){
+    _status = 4;
+  } else if (_status == 4){
     _status = 0;
   }
 }
 
-void CareRecipient::restroom(Vector2D* position){
+void CareRecipient::restroom(){
   Vector2D* restroom = new Vector2D(25,30);
   _route->insertNext(restroom);
-  _route->insertNext(position);
+  _route->insertNext(_position);
 }
 
 void CareRecipient::urinate(){

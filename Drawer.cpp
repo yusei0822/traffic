@@ -119,32 +119,48 @@ void drawCareRecipient(){
   tmpCareRecipients.clear();
 
   // 被介護者の作成
-  int iniX = 15;
+  int iniX = 10;
   int iniY = 10;
   int crid = 0;
-  int d =0;
+  int d = 5;
   Vector2D* v0 = new Vector2D(0,0);
   int careLevel = 0;
   vector<pair<int,int > > iniPositions;
   vector<int> careLevels;
   // 被介護者の初期位置を入力
-  iniPositions.push_back(make_pair(iniX+10,d));
-  iniPositions.push_back(make_pair(iniX,iniY+d));
-  iniPositions.push_back(make_pair(iniX-10,d));
-  iniPositions.push_back(make_pair(iniX,-iniY+d));
-  iniPositions.push_back(make_pair(-iniX-10,d));
-  iniPositions.push_back(make_pair(-iniX,iniY+d));
-  iniPositions.push_back(make_pair(-iniX+10,d));
-  iniPositions.push_back(make_pair(-iniX,-iniY+d));
+  iniPositions.push_back(make_pair(iniX+d,iniY+d));
+  iniPositions.push_back(make_pair(iniX+d,iniY-d));
+  iniPositions.push_back(make_pair(iniX-d,iniY+d));
+  iniPositions.push_back(make_pair(iniX-d,iniY-d));
+  iniPositions.push_back(make_pair(-iniX+d,iniY+d));
+  iniPositions.push_back(make_pair(-iniX-d,iniY-d));
+  iniPositions.push_back(make_pair(-iniX-d,iniY+d));
+  iniPositions.push_back(make_pair(-iniX+d,iniY-d));
+  iniPositions.push_back(make_pair(iniX+d,-iniY-d));
+  iniPositions.push_back(make_pair(iniX+d,-iniY+d));
+  iniPositions.push_back(make_pair(iniX-d,-iniY-d));
+  iniPositions.push_back(make_pair(iniX-d,-iniY+d));
+  iniPositions.push_back(make_pair(-iniX+d,-iniY-d));
+  iniPositions.push_back(make_pair(-iniX-d,-iniY-d));
+  iniPositions.push_back(make_pair(-iniX-d,-iniY+d));
+  iniPositions.push_back(make_pair(-iniX+d,-iniY+d));
   // 被介護者の要介護レベルを設定
   careLevels.push_back(0);
-  careLevels.push_back(1);
   careLevels.push_back(0);
   careLevels.push_back(0);
   careLevels.push_back(0);
   careLevels.push_back(0);
   careLevels.push_back(0);
-  careLevels.push_back(1);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
+  careLevels.push_back(0);
   // 被介護者を作成
   srand(time(NULL));
   if(PresentTime > 3.0 && PresentTime < 5.0){
@@ -154,6 +170,7 @@ void drawCareRecipient(){
       careLevel = careLevels[i];
       crRoute->addNext(iniPosition);
       // cout << crid << endl;
+      // 膀胱に溜まっている初期値を指定
       int r = rand()%80 + 1;
       cout << "初期値は" << r << "です" << endl;
       CareRecipient *cr = new CareRecipient(crid, careLevel, crRoute, v0, r);
