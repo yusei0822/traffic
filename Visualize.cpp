@@ -136,7 +136,7 @@ void idleEvent()
 
   // トイレを我慢している人がいればその人が我慢している秒数を加算
   for(unsigned int i = 0;i<careRecipients.size();i++){
-    if(careRecipients[i].toiletCapacity()>100.0){
+    if(careRecipients[i].status() == 1 || careRecipients[i].status() == 2 || careRecipients[i].toiletCapacity() > 100){
       careRecipients[i].addEnduringSeconds();
     }
   }

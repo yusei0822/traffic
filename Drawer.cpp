@@ -145,22 +145,22 @@ void drawCareRecipient(){
   iniPositions.push_back(make_pair(-iniX-d,-iniY+d));
   iniPositions.push_back(make_pair(-iniX+d,-iniY+d));
   // 被介護者の要介護レベルを設定
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
-  careLevels.push_back(0);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
+  careLevels.push_back(2);
   // 被介護者を作成
   srand(time(NULL));
   if(PresentTime > 3.0 && PresentTime < 5.0){
@@ -200,9 +200,14 @@ void drawCareRecipient(){
     // 被介護者の形を定義
     if(cr->careLevel()==0){
       AutoGL_DrawCircle3D(cr->position()->x(),cr->position()->y(),1,0,0,1,0.5,5);
-    } else {
+    } else if (cr->careLevel()==1){
       AutoGL_DrawTriangle(cr->position()->x(),cr->position()->y(),0,cr->position()->x()+2,cr->position()->y()-1,0,cr->position()->x(),cr->position()->y()-2,0);
       // AutoGL_DrawCircle3D(cr->position()->x(),cr->position()->y(),1,0,0,1,0.5,5);
+    } else {
+      AutoGL_DrawQuadrangle(cr->position()->x() + 1, cr->position()->y(), 0,
+  			   cr->position()->x(), cr->position()->y() + 1, 0,
+  			   cr->position()->x() - 1, cr->position()->y(), 0,
+  			   cr->position()->x(), cr->position()->y() - 1, 0);
     }
   }
   careRecipients = tmpCareRecipients;

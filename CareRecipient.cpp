@@ -202,11 +202,19 @@ void CareRecipient::restroom(){
 
 void CareRecipient::urinate(){
   // 適切な尿量であれば成功とカウント
-  if (_toiletCapacity > 100 && _toiletCapacity <150){
+  if (_toiletCapacity > 100 && _toiletCapacity < 150){
     _numberOfSuccess += 1;
   }
-  _toiletCapacity -= 125;
-  _numberOfGoingToToilet += 1;
+  if (_careLevel == 0) {
+    _toiletCapacity -= 125;
+    _numberOfGoingToToilet += 1;
+  } else if (_careLevel == 1){
+    _toiletCapacity -= 50;
+    _numberOfGoingToToilet += 1;
+  } else {
+    _toiletCapacity -= 125;
+    _numberOfGoingToToilet += 1;
+  }
   // 膀胱量がマイナスにならないように調整
   if (_toiletCapacity <= 0.0) {
     _toiletCapacity = 0.0;
@@ -214,11 +222,11 @@ void CareRecipient::urinate(){
 }
 
 void CareRecipient::toiletIndicate(){
-  srand(time(NULL));
-  double t = rand()%30;
   if(_toiletCapacity > 100 && _status == 0 && _careLevel == 0){
     _status = 1;
-  } else if (_toiletCapacity > 50 + t && _status == 0 && _careLevel == 1){
+  } else if (_toiletCapacity > 75 && _status == 0 && _careLevel == 1){
+    _status = 1;
+  } else if (_toiletCapacity > 150 && _status == 0 && _careLevel == 2){
     _status = 1;
   }
 }
